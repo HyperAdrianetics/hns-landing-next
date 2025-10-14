@@ -6,7 +6,7 @@ import hyperneticsLogo from "../../../public/hypernetics-logo.svg";
 
 const Hero = () => {
   return (
-    <div className="bg-color-explosion h-screen flex justify-end">
+    <div className="bg-color-explosion h-dvh flex justify-end">
       <div className=" lg:w-5/12 bg-[rgba(255,255,255,0.02)] shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[7.3px] [-webkit-backdrop-filter:blur(7.3px)]  items-end justify-start h-full p-6 hidden lg:flex">
         <Image src={hyperneticsLogo} alt="Hypernetics Logo" />
       </div>
