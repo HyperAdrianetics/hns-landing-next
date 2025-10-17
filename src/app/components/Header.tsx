@@ -12,24 +12,6 @@ const Header = () => {
   return (
     <nav className="bg-transparent fixed left-0  w-full top-0 z-50">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <div className="w-2 h-2 lg:hidden">&nbsp;</div>
-
-        {/* Logo */}
-        <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
-          <Image
-            src={logoHypernetics}
-            alt="Logo Hypernetics"
-            className="h-12 w-auto  lg:hidden"
-            priority
-          />
-          <Image
-            src={logoHyperneticsMobile}
-            alt="Logo Hypernetics"
-            className="h-12 w-auto hidden lg:block"
-            priority
-          />
-        </a>
-
         {/* Botón del menú móvil */}
         <button
           onClick={toggleMenu}
@@ -55,6 +37,24 @@ const Header = () => {
           </svg>
         </button>
 
+        {/* Logo */}
+        <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
+          <Image
+            src={logoHypernetics}
+            alt="Logo Hypernetics"
+            className="h-12 w-auto  lg:hidden"
+            priority
+          />
+          <Image
+            src={logoHyperneticsMobile}
+            alt="Logo Hypernetics"
+            className="h-12 w-auto hidden lg:block"
+            priority
+          />
+        </a>
+
+        <div className="w-5 h-5 lg:hidden">&nbsp;</div>
+
         {/* Links del menú */}
         <div
           id="navbar-dropdown"
@@ -62,16 +62,7 @@ const Header = () => {
             isOpen ? "block" : "hidden"
           } w-full md:block md:w-auto transition-all duration-300 ease-in-out`}
         >
-          <ul
-            className="flex flex-col font-bold p-4 md:p-0 mt-4  rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0  items-center  md:bg-transparent gap-2 lg:gap-0  bg-[rgba(255,255,255,0.08)]
-  shadow-[0_4px_30px_rgba(0,0,0,0.1)]
-  backdrop-blur-[7.3px]
-  [-webkit-backdrop-filter:blur(7.3px)]
-  lg:bg-transparent
-  lg:shadow-none
-  lg:backdrop-blur-0
-  lg:[-webkit-backdrop-filter:blur(0px)]"
-          >
+          <ul className="flex flex-col font-bold p-4 md:p-0 mt-4  rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0  items-center  md:bg-transparent gap-2 lg:gap-0  bg-[rgba(255,255,255,0.08)] shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[7.3px] [-webkit-backdrop-filter:blur(7.3px)] lg:bg-transparent lg:shadow-none lg:backdrop-blur-0 lg:[-webkit-backdrop-filter:blur(0px)]">
             {["Home", "Nosotros", "Servicios", "Portafolio", "Contacto"].map(
               (item) => (
                 <li key={item}>

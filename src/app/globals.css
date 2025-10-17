@@ -4,6 +4,8 @@
   --primaryYellow: #d2d2af;
   --primaryGreen: #a7cf9e;
   --background: #13151e;
+  --primaryBlue: #191c29;
+  --secondaryBlue: #383e58;
 }
 
 body {
@@ -14,4 +16,9 @@ body {
 .bg-color-explosion {
   background: transparent url("../../public/color-explosion.png") no-repeat
     scroll center / cover;
+}
+
+h1 {
+  font-size: 3rem;
+  color: var(--primaryYellow);
 }
