@@ -23,8 +23,17 @@ body {
     center / cover;
 }
 
+.bg-contacto {
+  background: transparent url("assets/bg-contacto.png") no-repeat scroll center /
+    cover;
+}
+
 @media screen and (min-width: 1024px) {
   .bg-trabajemos {
+    background-attachment: fixed;
+  }
+
+  .bg-contacto {
     background-attachment: fixed;
   }
 }
