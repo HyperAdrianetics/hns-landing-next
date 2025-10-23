@@ -18,6 +18,17 @@ body {
     scroll center / cover;
 }
 
+.bg-trabajemos {
+  background: transparent url("assets/bg-trabajemos.jpg") no-repeat scroll
+    center / cover;
+}
+
+@media screen and (min-width: 1024px) {
+  .bg-trabajemos {
+    background-attachment: fixed;
+  }
+}
+
 h1 {
   font-size: 3rem;
   color: var(--primaryYellow);
