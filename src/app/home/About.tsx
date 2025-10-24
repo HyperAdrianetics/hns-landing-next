@@ -9,8 +9,7 @@ const About = () => {
   const cards = [
     {
       title: "Enfoque a resultados",
-      subtitle:
-        "software robusto que perduraCódigo con propósito. Resultados para tu negocio.",
+      subtitle: "Código con propósito. Resultados para tu negocio.",
       icon: vector,
       highlight: false,
     },

@@ -1,0 +1,24 @@
+# robots.txt para Hypernetics
+# https://hypernetics.com.mx
+
+# Permitir acceso a todos los bots
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://hypernetics.com.mx/sitemap.xml
+
+# Prevenir indexación de archivos del sistema
+Disallow: /api/
+Disallow: /_next/
+Disallow: /static/
+
+# Bots específicos (opcional - ya están permitidos por defecto)
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
