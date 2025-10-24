@@ -61,7 +61,7 @@ export default function AvisoDePrivacidad() {
 
         <div className="space-y-6 text-gray-300 leading-relaxed">
           <div>
-            <p><strong className="text-white">Responsable:</strong> Hypernetics, S.A. de C.V. ("Hypernetics").</p>
+            <p><strong className="text-white">Responsable:</strong> Hypernetics, S.A. de C.V. (&quot;Hypernetics&quot;).</p>
             <p><strong className="text-white">Domicilio:</strong> [Indica domicilio completo del responsable].</p>
             <p>
               <strong className="text-white">Contacto de privacidad:</strong>{" "}
@@ -101,7 +101,7 @@ export default function AvisoDePrivacidad() {
               <a href="mailto:contacto@hypernetics.com.mx" className="text-[var(--primaryGreen)] hover:underline">
                 contacto@hypernetics.com.mx
               </a>{" "}
-              con el asunto "Negativa a finalidades secundarias".
+              con el asunto &quot;Negativa a finalidades secundarias&quot;.
             </p>
           </section>
 
@@ -155,7 +155,7 @@ export default function AvisoDePrivacidad() {
                 <a href="mailto:contacto@hypernetics.com.mx" className="text-[var(--primaryGreen)] hover:underline">
                   contacto@hypernetics.com.mx
                 </a>{" "}
-                con asunto "Derechos ARCO".
+                con asunto &quot;Derechos ARCO&quot;.
               </li>
               <li>
                 Incluye: nombre completo, medio de contacto, identificación oficial (o poder), y descripción del derecho

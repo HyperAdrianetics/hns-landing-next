@@ -61,12 +61,12 @@ export default function TerminosYCondiciones() {
 
         <div className="space-y-6 text-gray-300 leading-relaxed">
           <p>
-            Estos Términos y Condiciones (los "<strong className="text-white">Términos</strong>") regulan el acceso y uso del sitio{" "}
+            Estos Términos y Condiciones (los &quot;<strong className="text-white">Términos</strong>&quot;) regulan el acceso y uso del sitio{" "}
             <a href="https://hypernetics.com.mx/" className="text-[var(--primaryGreen)] hover:underline">
               hypernetics.com.mx
             </a>{" "}
-            (el "<strong className="text-white">Sitio</strong>") y, en lo que corresponda, la contratación de servicios con{" "}
-            <strong className="text-white">Hypernetics, S.A. de C.V.</strong> ("<strong className="text-white">Hypernetics</strong>", "nosotros").
+            (el &quot;<strong className="text-white">Sitio</strong>&quot;) y, en lo que corresponda, la contratación de servicios con{" "}
+            <strong className="text-white">Hypernetics, S.A. de C.V.</strong> (&quot;<strong className="text-white">Hypernetics</strong>&quot;, &quot;nosotros&quot;).
             Al usar el Sitio o contratar nuestros servicios, aceptas estos Términos.
           </p>
 
@@ -86,7 +86,7 @@ export default function TerminosYCondiciones() {
               Estos Términos aplican al uso del Sitio y a las interacciones comerciales que se inicien a través del Sitio.
               Las prestaciones específicas de proyectos y servicios profesionales se sujetarán además a sus{" "}
               <em className="text-gray-400">contratos, órdenes de trabajo, propuestas o cotizaciones</em> particulares
-              ("<strong className="text-white">Contratos Específicos</strong>"). En caso de conflicto, prevalecerán las
+              (&quot;<strong className="text-white">Contratos Específicos</strong>&quot;). En caso de conflicto, prevalecerán las
               condiciones de los Contratos Específicos.
             </p>
           </section>
@@ -211,7 +211,7 @@ export default function TerminosYCondiciones() {
             </h2>
             <ul className="list-disc list-inside space-y-2 ml-4">
               <li>
-                Salvo lo pactado en Contratos Específicos, el Sitio y su contenido se proporcionan "tal cual", sin
+                Salvo lo pactado en Contratos Específicos, el Sitio y su contenido se proporcionan &quot;tal cual&quot;, sin
                 garantías de disponibilidad, adecuación a un propósito particular o ausencia de errores.
               </li>
               <li>
