@@ -50,4 +50,20 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- Aviso de Privacidad -->
+  <url>
+    <loc>https://hypernetics.com.mx/aviso-de-privacidad</loc>
+    <lastmod>2025-01-24</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Términos y Condiciones -->
+  <url>
+    <loc>https://hypernetics.com.mx/terminos-y-condiciones</loc>
+    <lastmod>2025-10-24</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
 </urlset>

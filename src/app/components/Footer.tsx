@@ -56,17 +56,14 @@ const Footer = () => {
         <div className="lg:w-4/12 w-full h-full">
           <ul className="flex flex-col gap-5">
             <li>
-              <a href="https://hypernetics.com/privacy-policy">
-                Política de Privacidad
+              <a href="/aviso-de-privacidad" className="hover:text-[var(--primaryGreen)] transition-colors">
+                Aviso de Privacidad
               </a>
             </li>
             <li>
-              <a href="https://hypernetics.com/terms-and-conditions">
-                Términos y condiciones
+              <a href="/terminos-y-condiciones" className="hover:text-[var(--primaryGreen)] transition-colors">
+                Términos y Condiciones
               </a>
-            </li>
-            <li>
-              <a href="https://hypernetics.com/cookies">Cookies</a>
             </li>
           </ul>
         </div>
