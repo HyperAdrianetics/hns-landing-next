@@ -29,7 +29,7 @@ const Process = () => {
   ];
 
   return (
-    <section id="services" className="min-h-screen p-5 container mx-auto">
+    <section id="process" className="min-h-screen p-5 container mx-auto">
       <div className="flex flex-col lg:flex-row items-center justify-center my-20 gap-5">
         <h1 className="text-4xl font-bold mb-4">
           Nuestro <span className="text-[var(--primaryGreen)]">Proceso</span>

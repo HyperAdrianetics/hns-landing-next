@@ -55,7 +55,7 @@ const About = () => {
     },
   ];
   return (
-    <section className="min-h-screen p-5 container mx-auto">
+    <section id="about" className="min-h-screen p-5 container mx-auto">
       <div className="mt-15 flex flex-col lg:flex-row gap-5 lg:gap-20 lg:items-center">
         {/* CARD SECTION  */}
         <div className="lg:w-8/12 w-full">

@@ -11,26 +11,43 @@ const Footer = () => {
       <div className="flex flex-col lg:flex-row items-start justify-center p-5 gap-5 text-center lg:text-left font-light container mx-auto my-10">
         <div className="lg:w-3/12 w-full h-full font-medium">
           <ul className="flex flex-col gap-5">
-            <li>Nosotros</li>
-            <li>Services</li>
-            <li>Portfolio</li>
-            <li>Contact</li>
+            <li>
+              <a href="#about">Nosotros</a>
+            </li>
+            <li>
+              <a href="#services">Servicios</a>
+            </li>
+            <li>
+              <a href="#process">Proceso</a>
+            </li>
+            <li>
+              <a href="#contact">Contacto</a>
+            </li>
           </ul>
         </div>
         <div className="lg:w-3/12 w-full h-full">
           <ul className="flex flex-col gap-5">
-            <li>contacto@hypernetics.com</li>
-            <li>+52 (55) 4484-3991</li>
+            <li>
+              <a href="mailto:contacto@hypernetics.com">
+                contacto@hypernetics.com
+              </a>
+            </li>
+            <li>
+              <a href="tel:+525544843991">+52 (55) 4484-3991</a>
+            </li>
             <li>Ciudad de México | Querétaro</li>
             <li>Social links:</li>
-            <li className="flex gap-5 justify-center">
-              <a href="#">
+            <li className="flex gap-5 justify-center lg:justify-start">
+              <a
+                href="https://www.linkedin.com/company/hypernetics-mx/"
+                target="_blank"
+              >
                 <Image src={linkedinLogo} alt="Hypernetics Logo" />
               </a>
-              <a href="#">
+              <a href="https://github.com/hypernetics-mx" target="_blank">
                 <Image src={githubLogo} alt="Hypernetics Logo" />
               </a>
-              <a href="#">
+              <a href="https://x.com/hyperneticsmx" target="_blank">
                 <Image src={xLogo} alt="Hypernetics Logo" />
               </a>
             </li>
@@ -38,9 +55,19 @@ const Footer = () => {
         </div>
         <div className="lg:w-4/12 w-full h-full">
           <ul className="flex flex-col gap-5">
-            <li>Política de Privacidad</li>
-            <li>Términos y condiciones</li>
-            <li>Cookies</li>
+            <li>
+              <a href="https://hypernetics.com/privacy-policy">
+                Política de Privacidad
+              </a>
+            </li>
+            <li>
+              <a href="https://hypernetics.com/terms-and-conditions">
+                Términos y condiciones
+              </a>
+            </li>
+            <li>
+              <a href="https://hypernetics.com/cookies">Cookies</a>
+            </li>
           </ul>
         </div>
         <div className="lg:w-3/12 w-full h-full flex flex-col gap-5">
@@ -50,7 +77,7 @@ const Footer = () => {
             tu negocio.
           </p>
           <a
-            href="#"
+            href="#contact"
             className="block text-[var(--primaryGreen)] hover:text-[var(--primaryYellow)] border-2 border-[var(--primaryGreen)] hover:border-[var(--primaryYellow)] focus:ring-4 focus:outline-none focus:ring-[var(--primaryGreen)] font-bold rounded-lg  px-5 py-2.5 text-center me-2 mb-2"
           >
             Comenzar Proyecto
