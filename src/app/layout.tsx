@@ -23,11 +23,11 @@ export const metadata: Metadata = {
     title: "Hypernetics | Desarrollo de Software Personalizado",
     description:
       "Soluciones tecnológicas personalizadas para empresas que buscan eficiencia, innovación y escalabilidad.",
-    url: "https://hns-landing-next.vercel.app/",
+    url: "https://hypernetics.com.mx/",
     siteName: "Hypernetics",
     images: [
       {
-        url: "https://hns-landing-next.vercel.app/og-image.jpg", // cámbialo por tu imagen real
+        url: "https://hypernetics.com.mx/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Hypernetics - Desarrollo de Software",
@@ -41,10 +41,10 @@ export const metadata: Metadata = {
     title: "Hypernetics | Desarrollo de Software Personalizado",
     description:
       "Creamos software a la medida para empresas que buscan crecer con innovación tecnológica.",
-    images: ["https://hns-landing-next.vercel.app/og-image.jpg"],
+    images: ["https://hypernetics.com.mx/og-image.jpg"],
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: "/favicon.png",
   },
 };
 

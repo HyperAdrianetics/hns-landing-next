@@ -89,6 +89,7 @@ const ContactForm = () => {
           <Link
             href="/aviso-de-privacidad"
             target="_blank"
+            rel="noopener noreferrer"
             className="text-[var(--primaryGreen)] hover:underline font-medium"
           >
             Aviso de Privacidad

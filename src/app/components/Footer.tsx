@@ -28,8 +28,8 @@ const Footer = () => {
         <div className="lg:w-3/12 w-full h-full">
           <ul className="flex flex-col gap-5">
             <li>
-              <a href="mailto:contacto@hypernetics.com">
-                contacto@hypernetics.com
+              <a href="mailto:contacto@hypernetics.com.mx">
+                contacto@hypernetics.com.mx
               </a>
             </li>
             <li>
@@ -41,14 +41,26 @@ const Footer = () => {
               <a
                 href="https://www.linkedin.com/company/hypernetics-mx/"
                 target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn de Hypernetics"
               >
-                <Image src={linkedinLogo} alt="Hypernetics Logo" />
+                <Image src={linkedinLogo} alt="LinkedIn" />
               </a>
-              <a href="https://github.com/hypernetics-mx" target="_blank">
-                <Image src={githubLogo} alt="Hypernetics Logo" />
+              <a
+                href="https://github.com/hypernetics-mx"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub de Hypernetics"
+              >
+                <Image src={githubLogo} alt="GitHub" />
               </a>
-              <a href="https://x.com/hyperneticsmx" target="_blank">
-                <Image src={xLogo} alt="Hypernetics Logo" />
+              <a
+                href="https://x.com/hyperneticsmx"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="X (Twitter) de Hypernetics"
+              >
+                <Image src={xLogo} alt="X (Twitter)" />
               </a>
             </li>
           </ul>
