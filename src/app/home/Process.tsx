@@ -4,7 +4,7 @@ const Process = () => {
   const steps = [
     {
       number: "01",
-      title: "Analisis",
+      title: "Análisis",
       description: "Entendemos tus necesidades y objetivos",
       selected: true,
     },
