@@ -14,11 +14,12 @@ const Services = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-        <article className="col-span-1 md:col-span-2 lg:col-span-2 flex items-start justify-start flex-col rounded-lg p-10 border w-full bg-[var(--primaryBlue)] border-[var(--secondaryBlue)]  lg:min-h-[20rem]">
-          <h2 className="text-2xl font-bold text-[var(--primaryGreen)]">
+        <article className="col-span-1 md:col-span-2 lg:col-span-2 flex items-start justify-start flex-col rounded-lg p-10 border w-full bg-[var(--primaryBlue)] border-[var(--secondaryBlue)]  lg:min-h-[20rem] relative">
+          <div className="bg-[radial-gradient(circle_at_top_left,_rgba(63,183,36,0.15)_0%,_rgba(127,231,122,0.05)_30%,_rgba(6,8,17,1)_100%)] w-full h-full absolute top-0 left-0 z-0"></div>
+          <h2 className="text-2xl font-bold text-[var(--primaryGreen)] z-10">
             Desarrollo de Software <br /> Personalizado
           </h2>
-          <p className="my-4">
+          <p className="my-4 z-10">
             Creamos soluciones a medida que se adaptan a tu negocio, integrando
             tecnología de vanguardia, diseño centrado en el usuario y resultados
             medibles.
@@ -40,41 +41,45 @@ const Services = () => {
             <li>integración APis</li>
           </ul>
         </article>
-        <article className="col-span-1 md:col-span-2 lg:col-span-1 flex items-start justify-start flex-col rounded-lg p-10 border w-full bg-[var(--primaryBlue)] border-[var(--secondaryBlue)] lg:min-h-[20rem]">
-          <h2 className="text-2xl font-bold text-[var(--primaryGreen)]">
+        <article className="col-span-1 md:col-span-2 lg:col-span-1 flex items-start justify-start flex-col rounded-lg p-10 border w-full bg-[var(--primaryBlue)] border-[var(--secondaryBlue)] lg:min-h-[20rem] relative">
+          <div className="bg-[radial-gradient(circle_at_top_left,_rgba(63,183,36,0.15)_0%,_rgba(127,231,122,0.05)_30%,_rgba(6,8,17,1)_100%)] w-full h-full absolute top-0 left-0 z-0"></div>
+          <h2 className="text-2xl font-bold text-[var(--primaryGreen)] z-10">
             Desarrollo Web
           </h2>
-          <p className="my-4">
+          <p className="my-4 z-10">
             Desarrollamos sitios y aplicaciones web responsivas, con alto
             rendimiento y visibilidad para conectar con tu audiencia y potenciar
             tu marca en línea.
           </p>
         </article>
-        <article className="col-span-1 md:col-span-2 lg:col-span-1 flex items-start justify-start flex-col rounded-lg p-10 border w-full bg-[var(--primaryBlue)] border-[var(--secondaryBlue)] lg:min-h-[20rem]">
-          <h2 className="text-2xl font-bold text-[var(--primaryYellow)]">
+        <article className="col-span-1 md:col-span-2 lg:col-span-1 flex items-start justify-start flex-col rounded-lg p-10 border w-full bg-[var(--primaryBlue)] border-[var(--secondaryBlue)] lg:min-h-[20rem] relative">
+          <div className="bg-[radial-gradient(circle_at_top_left,_rgba(63,183,36,0.15)_0%,_rgba(127,231,122,0.05)_30%,_rgba(6,8,17,1)_100%)] w-full h-full absolute top-0 left-0 z-0"></div>
+          <h2 className="text-2xl font-bold text-[var(--primaryYellow)] z-10">
             Arquitectura de Datos
           </h2>
-          <p className="my-4">
+          <p className="my-4 z-10">
             Diseñamos infraestructuras de datos sólidas: almacenamiento,
             procesamiento y análisis que te permiten convertir información en
             decisiones estratégicas.
           </p>
         </article>
-        <article className="col-span-1 md:col-span-2 lg:col-span-1 flex items-start justify-start flex-col rounded-lg p-10 border w-full bg-[var(--primaryBlue)] border-[var(--secondaryBlue)] lg:min-h-[20rem]">
-          <h2 className="text-2xl font-bold text-[var(--primaryGreen)]">
+        <article className="col-span-1 md:col-span-2 lg:col-span-1 flex items-start justify-start flex-col rounded-lg p-10 border w-full bg-[var(--primaryBlue)] border-[var(--secondaryBlue)] lg:min-h-[20rem] relative">
+          <div className="bg-[radial-gradient(circle_at_top_left,_rgba(63,183,36,0.15)_0%,_rgba(127,231,122,0.05)_30%,_rgba(6,8,17,1)_100%)] w-full h-full absolute top-0 left-0 z-0"></div>
+          <h2 className="text-2xl font-bold text-[var(--primaryGreen)] z-10">
             Soluciones Cloud
           </h2>
-          <p className="my-4">
+          <p className="my-4 z-10">
             Migramos y optimizamos tus servicios en la nube para escalar con
             seguridad, agilidad y eficiencia, brindando flexibilidad y reducción
             de costos.
           </p>
         </article>
-        <article className="col-span-1 md:col-span-2 lg:col-span-2 flex items-start justify-start flex-col rounded-lg p-10 border w-full bg-[var(--primaryBlue)] border-[var(--secondaryBlue)] lg:min-h-[20rem]">
-          <h2 className="text-2xl font-bold text-[var(--primaryYellow)]">
+        <article className="col-span-1 md:col-span-2 lg:col-span-2 flex items-start justify-start flex-col rounded-lg p-10 border w-full bg-[var(--primaryBlue)] border-[var(--secondaryBlue)] lg:min-h-[20rem] relative">
+          <div className="bg-[radial-gradient(circle_at_top_left,_rgba(63,183,36,0.15)_0%,_rgba(127,231,122,0.05)_30%,_rgba(6,8,17,1)_100%)] w-full h-full absolute top-0 left-0 z-0"></div>
+          <h2 className="text-2xl font-bold text-[var(--primaryYellow)] z-10">
             Consultoria Técnica
           </h2>
-          <p className="my-4">
+          <p className="my-4 z-10">
             Asesoramos en tecnología y procesos: revisión de arquitectura,
             selección de herramientas, adopción de buenas prácticas y roadmap de
             innovación.

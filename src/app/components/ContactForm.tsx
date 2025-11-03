@@ -65,7 +65,6 @@ const ContactForm = () => {
     setSubmitStatus({ type: null, message: "" });
 
     try {
-      // Aquí debes poner la URL de tu webhook de n8n
       const webhookUrl = process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL || "";
 
       if (!webhookUrl) {
@@ -120,19 +119,6 @@ const ContactForm = () => {
       onSubmit={handleSubmit}
       className="bg-[#151922] text-white flex flex-col gap-8 py-8 lg:px-15 px-8 rounded-xl w-full"
     >
-      {/* Mensaje de estado */}
-      {submitStatus.type && (
-        <div
-          className={`p-4 rounded-lg ${
-            submitStatus.type === "success"
-              ? "bg-green-900/30 border border-green-500 text-green-300"
-              : "bg-red-900/30 border border-red-500 text-red-300"
-          }`}
-        >
-          {submitStatus.message}
-        </div>
-      )}
-
       <input
         type="text"
         name="name"
@@ -286,6 +272,19 @@ const ContactForm = () => {
       >
         {isSubmitting ? "Enviando..." : "Enviar"}
       </button>
+
+      {/* Mensaje de estado */}
+      {submitStatus.type && (
+        <div
+          className={`p-4 rounded-lg ${
+            submitStatus.type === "success"
+              ? "bg-green-900/30 border border-green-500 text-green-300"
+              : "bg-red-900/30 border border-red-500 text-red-300"
+          }`}
+        >
+          {submitStatus.message}
+        </div>
+      )}
     </form>
   );
 };
