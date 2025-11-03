@@ -7,7 +7,7 @@ import xLogo from "../assets/icons/x.svg";
 
 const Footer = () => {
   return (
-    <footer className="min-h-screen bg-[#050710] flex flex-col ">
+    <footer className=" bg-[#050710] flex flex-col ">
       <div className="flex flex-col lg:flex-row items-start justify-center p-5 gap-5 text-center lg:text-left font-light container mx-auto my-10">
         <div className="lg:w-3/12 w-full h-full font-medium">
           <ul className="flex flex-col gap-5">
@@ -68,12 +68,18 @@ const Footer = () => {
         <div className="lg:w-4/12 w-full h-full">
           <ul className="flex flex-col gap-5">
             <li>
-              <a href="/aviso-de-privacidad" className="hover:text-[var(--primaryGreen)] transition-colors">
+              <a
+                href="/aviso-de-privacidad"
+                className="hover:text-[var(--primaryGreen)] transition-colors"
+              >
                 Aviso de Privacidad
               </a>
             </li>
             <li>
-              <a href="/terminos-y-condiciones" className="hover:text-[var(--primaryGreen)] transition-colors">
+              <a
+                href="/terminos-y-condiciones"
+                className="hover:text-[var(--primaryGreen)] transition-colors"
+              >
                 Términos y Condiciones
               </a>
             </li>

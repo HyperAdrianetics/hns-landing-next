@@ -8,17 +8,14 @@ const Hero = () => {
   return (
     <div className="h-dvh bg-[linear-gradient(to_bottom,_black_0%,_#050710_41%,_#13151E_100%)]">
       <div className="bg-color-explosion w-full h-full flex justify-end">
-        <div
-          className=" lg:w-5/12 bg-[rgba(255,255,255,0.02)] shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[7.3px] [-webkit-backdrop-filter:blur(7.3px)]  items-end justify-start h-full p-6 hidden lg:flex
-        "
-        >
+        <div className="lg:w-5/12 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.02)_70%,#13151E_100%)] shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[7.3px] [-webkit-backdrop-filter:blur(7.3px)] items-end justify-start h-full p-6 hidden lg:flex">
           <Image src={hyperneticsLogo} alt="Hypernetics Logo" />
         </div>
 
         <div className="hidden lg:block lg:w-2/12"></div>
 
         <div className="w-12/12 lg:w-5/12 flex items-end p-5 lg:p-0">
-          <article className="lg:h-full p-4 lg:p-6 flex flex-col justify-end rounded-2xl lg:rounded-none bg-[rgba(255,255,255,0.08)] lg:bg-[rgba(255,255,255,0.02)] shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[7.3px] [-webkit-backdrop-filter:blur(7.3px)]">
+          <article className="lg:h-full p-4 lg:p-6 flex flex-col justify-end rounded-2xl lg:rounded-none  lg:bg-[linear-gradient(to_bottom,rgba(255,255,255,0.02)_70%,#13151E_100%)] shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[7.3px] [-webkit-backdrop-filter:blur(7.3px)]">
             <h1 className="text-4xl font-medium">
               Transformamos tus ideas en soluciones digitales
             </h1>
