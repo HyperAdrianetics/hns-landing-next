@@ -6,6 +6,9 @@
   --background: #13151e;
   --primaryBlue: #191c29;
   --secondaryBlue: #383e58;
+  --accentMagenta: #f06fae;
+  --accentGold: #e8b64c;
+  --gradBrand: linear-gradient(90deg, var(--accentMagenta), var(--accentGold));
 }
 
 html {
@@ -45,4 +48,97 @@ body {
 h1 {
   font-size: 3rem;
   color: var(--primaryYellow);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display), sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-display), sans-serif;
+}
+
+.text-gradient-brand {
+  background: var(--gradBrand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.section-label {
+  font-family: var(--font-display), sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--primaryGreen);
+}
+
+.glass-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card--hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 40px rgba(240, 111, 174, 0.15);
+}
+
+.hairline {
+  position: absolute;
+  top: 0;
+  left: 1.125rem;
+  right: 1.125rem;
+  height: 2px;
+  border-radius: 2px;
+}
+
+.hairline--brand {
+  background: var(--gradBrand);
+}
+
+.hairline--green {
+  background: linear-gradient(90deg, var(--primaryGreen), transparent);
+}
+
+.hairline--gold {
+  background: linear-gradient(90deg, var(--accentGold), transparent);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--gradBrand);
+  color: var(--background);
+  font-family: var(--font-display), sans-serif;
+  font-weight: 600;
+  border-radius: 9999px;
+  padding: 0.75rem 1.75rem;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 24px rgba(240, 111, 174, 0.35);
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-card,
+  .btn-primary {
+    transition: none;
+  }
+
+  .glass-card--hover:hover,
+  .btn-primary:hover {
+    transform: none;
+  }
 }

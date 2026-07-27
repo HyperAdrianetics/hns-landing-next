@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Open_Sans } from "next/font/google";
+import { Open_Sans, Space_Grotesk } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import ParticlesBackground from "./components/ParticlesBackground";
@@ -7,6 +7,12 @@ import ParticlesBackground from "./components/ParticlesBackground";
 const openSans = Open_Sans({
   subsets: ["latin"],
   weight: ["300", "400", "600", "700"],
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-display",
 });
 
 export const metadata: Metadata = {
@@ -56,7 +62,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className={`${openSans.className} antialiased`}>
+      <body className={`${openSans.className} ${spaceGrotesk.variable} antialiased`}>
         {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-4XGJE6WLZ1"
