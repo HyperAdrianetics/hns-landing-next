@@ -15,6 +15,9 @@ interface FormData {
   urgent: boolean;
 }
 
+const fieldClasses =
+  "rounded-xl border border-[rgba(255,255,255,0.12)] bg-[rgba(255,255,255,0.05)] px-4 py-3 text-white placeholder:text-[#8b91a3] focus:border-[var(--primaryGreen)] focus:outline-none";
+
 const ContactForm = () => {
   const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -118,8 +121,9 @@ const ContactForm = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-[#151922] text-white flex flex-col gap-8 py-8 lg:px-15 px-8 rounded-xl w-full"
+      className="glass-card flex w-full flex-col gap-6 !rounded-[20px] p-8 text-white lg:p-10"
     >
+      <div className="hairline hairline--brand" />
       {/* Mensaje de estado */}
       {submitStatus.type && (
         <div
@@ -140,7 +144,7 @@ const ContactForm = () => {
         onChange={handleInputChange}
         placeholder="Nombre completo"
         required
-        className="py-3 border-x-0 border-t-0 border-b border-white bg-transparent focus:outline-none focus:border-[var(--primaryGreen)]  focus:text-[var(--primaryGreen)] placeholder:focus:text-[var(--primaryGreen)]"
+        className={fieldClasses}
       />
 
       <input
@@ -150,7 +154,7 @@ const ContactForm = () => {
         onChange={handleInputChange}
         placeholder="Correo electrónico"
         required
-        className="py-3 border-x-0 border-t-0 border-b border-white bg-transparent focus:outline-none focus:border-[var(--primaryGreen)]  focus:text-[var(--primaryGreen)] placeholder:focus:text-[var(--primaryGreen)]"
+        className={fieldClasses}
       />
 
       <input
@@ -160,7 +164,7 @@ const ContactForm = () => {
         onChange={handleInputChange}
         placeholder="Teléfono"
         required
-        className="py-3 border-x-0 border-t-0 border-b border-white bg-transparent focus:outline-none focus:border-[var(--primaryGreen)]  focus:text-[var(--primaryGreen)] placeholder:focus:text-[var(--primaryGreen)]"
+        className={fieldClasses}
       />
 
       <select
@@ -168,7 +172,7 @@ const ContactForm = () => {
         value={formData.perfil}
         onChange={handleInputChange}
         required
-        className="py-3 border-x-0 border-t-0 border-b border-white bg-transparent focus:outline-none focus:border-[var(--primaryGreen)]  focus:text-[var(--primaryGreen)] placeholder:focus:text-[var(--primaryGreen)]"
+        className={`${fieldClasses} [&>option]:bg-[var(--primaryBlue)]`}
       >
         <option value="">Puesto de trabajo</option>
         <option value="CEO/Fundador">CEO / Fundador</option>
@@ -187,7 +191,7 @@ const ContactForm = () => {
         value={formData.projectType}
         onChange={handleInputChange}
         required
-        className="py-3 border-x-0 border-t-0 border-b border-white bg-transparent focus:outline-none focus:border-[var(--primaryGreen)]  focus:text-[var(--primaryGreen)] placeholder:focus:text-[var(--primaryGreen)]"
+        className={`${fieldClasses} [&>option]:bg-[var(--primaryBlue)]`}
       >
         <option value="">Tipo de proyecto</option>
         <option value="web">Desarrollo web</option>
@@ -205,7 +209,7 @@ const ContactForm = () => {
         value={formData.budget}
         onChange={handleInputChange}
         required
-        className="py-3 border-x-0 border-t-0 border-b border-white bg-transparent focus:outline-none focus:border-[var(--primaryGreen)]  focus:text-[var(--primaryGreen)] placeholder:focus:text-[var(--primaryGreen)]"
+        className={`${fieldClasses} [&>option]:bg-[var(--primaryBlue)]`}
       >
         <option value="">Presupuesto estimado (MXN)</option>
         <option value="<50k">Menos de $50,000</option>
@@ -221,7 +225,7 @@ const ContactForm = () => {
         value={formData.company}
         onChange={handleInputChange}
         placeholder="Empresa o nombre del proyecto"
-        className="py-3 border-x-0 border-t-0 border-b border-white bg-transparent focus:outline-none focus:border-[var(--primaryGreen)]  focus:text-[var(--primaryGreen)] placeholder:focus:text-[var(--primaryGreen)]"
+        className={fieldClasses}
       />
 
       <textarea
@@ -231,7 +235,7 @@ const ContactForm = () => {
         placeholder="Cuéntanos sobre tu proyecto"
         rows={3}
         required
-        className="py-3 border-x-0 border-t-0 border-b border-white bg-transparent focus:outline-none focus:border-[var(--primaryGreen)]  focus:text-[var(--primaryGreen)] placeholder:focus:text-[var(--primaryGreen)] resize-none"
+        className={`${fieldClasses} resize-none`}
       ></textarea>
 
       {/* Checkbox urgente */}
@@ -281,7 +285,7 @@ const ContactForm = () => {
 
       <button
         type="submit"
-        className="bg-[var(--primaryGreen)] py-4 mt-5 rounded-xl text-black font-bold hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+        className="btn-primary mt-2 disabled:cursor-not-allowed disabled:opacity-50"
         disabled={!acceptedPrivacy || isSubmitting}
       >
         {isSubmitting ? "Enviando..." : "Enviar"}
