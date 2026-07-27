@@ -39,7 +39,12 @@ const Technologies = () => {
             key={item.alt}
             className="glass-card glass-card--hover flex h-[140px] items-center justify-center"
           >
-            <Image src={item.src} alt={item.alt} height={60} />
+            <Image
+              src={item.src}
+              alt={item.alt}
+              height={60}
+              style={{ width: "auto" }}
+            />
           </article>
         ))}
       </div>
