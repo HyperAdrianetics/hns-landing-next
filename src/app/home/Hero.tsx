@@ -9,9 +9,14 @@ import { stats, statAccentClass } from "./stats";
 const Hero = () => {
   return (
     <HeroLiquid>
+      {/* El fondo opaco parece redundante con el del body, pero no lo es: con
+          HTML-in-Canvas activo, Liquid dibuja esta sección sobre el canvas que
+          ya la muestra, y cada píxel semitransparente se compone dos veces. Sin
+          fondo, el alfa suave de la explosión se duplica y aparece un halo
+          morado a su alrededor. */}
       <section
         id="top"
-        className="relative min-h-dvh overflow-hidden flex items-center"
+        className="relative min-h-dvh overflow-hidden flex items-center bg-[var(--background)]"
       >
         <div className="container mx-auto grid lg:grid-cols-[52%_48%] items-center gap-10 px-5 pt-32 pb-16">
           <div>
