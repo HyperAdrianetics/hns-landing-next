@@ -7,37 +7,54 @@ import xLogo from "../assets/icons/x.svg";
 
 const Footer = () => {
   return (
-    <footer className="min-h-screen bg-[#050710] flex flex-col ">
-      <div className="flex flex-col lg:flex-row items-start justify-center p-5 gap-5 text-center lg:text-left font-light container mx-auto my-10">
-        <div className="lg:w-3/12 w-full h-full font-medium">
-          <ul className="flex flex-col gap-5">
+    <footer className="relative mt-24 bg-[#0a0c13]">
+      <div
+        aria-hidden
+        className="h-[2px] w-full bg-[linear-gradient(90deg,var(--accentMagenta),var(--accentGold),var(--primaryGreen))]"
+      />
+      <div className="container mx-auto grid gap-10 px-5 py-14 text-center text-sm font-light md:grid-cols-2 md:text-left lg:grid-cols-4">
+        <div>
+          <p className="font-display mb-4 font-semibold text-white">
+            Navegación
+          </p>
+          <ul className="flex flex-col gap-3">
             <li>
-              <a href="#about">Nosotros</a>
+              <a href="#about" className="transition-colors hover:text-[var(--primaryGreen)]">
+                Nosotros
+              </a>
             </li>
             <li>
-              <a href="#services">Servicios</a>
+              <a href="#services" className="transition-colors hover:text-[var(--primaryGreen)]">
+                Servicios
+              </a>
             </li>
             <li>
-              <a href="#process">Proceso</a>
+              <a href="#process" className="transition-colors hover:text-[var(--primaryGreen)]">
+                Proceso
+              </a>
             </li>
             <li>
-              <a href="#contact">Contacto</a>
+              <a href="#contact" className="transition-colors hover:text-[var(--primaryGreen)]">
+                Contacto
+              </a>
             </li>
           </ul>
         </div>
-        <div className="lg:w-3/12 w-full h-full">
-          <ul className="flex flex-col gap-5">
+        <div>
+          <p className="font-display mb-4 font-semibold text-white">Contacto</p>
+          <ul className="flex flex-col gap-3">
             <li>
-              <a href="mailto:contacto@hypernetics.com.mx">
+              <a href="mailto:contacto@hypernetics.com.mx" className="transition-colors hover:text-[var(--primaryGreen)]">
                 contacto@hypernetics.com.mx
               </a>
             </li>
             <li>
-              <a href="tel:+525544843991">+52 (55) 4484-3991</a>
+              <a href="tel:+525544843991" className="transition-colors hover:text-[var(--primaryGreen)]">
+                +52 (55) 4484-3991
+              </a>
             </li>
             <li>Ciudad de México | Querétaro</li>
-            <li>Social links:</li>
-            <li className="flex gap-5 justify-center lg:justify-start">
+            <li className="flex justify-center gap-5 md:justify-start">
               <a
                 href="https://www.linkedin.com/company/hypernetics-mx/"
                 target="_blank"
@@ -65,43 +82,49 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-        <div className="lg:w-4/12 w-full h-full">
-          <ul className="flex flex-col gap-5">
+        <div>
+          <p className="font-display mb-4 font-semibold text-white">Legal</p>
+          <ul className="flex flex-col gap-3">
             <li>
-              <a href="/aviso-de-privacidad" className="hover:text-[var(--primaryGreen)] transition-colors">
+              <a
+                href="/aviso-de-privacidad"
+                className="transition-colors hover:text-[var(--primaryGreen)]"
+              >
                 Aviso de Privacidad
               </a>
             </li>
             <li>
-              <a href="/terminos-y-condiciones" className="hover:text-[var(--primaryGreen)] transition-colors">
+              <a
+                href="/terminos-y-condiciones"
+                className="transition-colors hover:text-[var(--primaryGreen)]"
+              >
                 Términos y Condiciones
               </a>
             </li>
           </ul>
         </div>
-        <div className="lg:w-3/12 w-full h-full flex flex-col gap-5">
+        <div className="flex flex-col items-center gap-5 md:items-start">
           <p className="text-[var(--primaryYellow)]">
             Transformamos ideas en soluciones tecnológicas innovadoras.
             Desarrollo de software personalizado que impulsa el crecimiento de
             tu negocio.
           </p>
-          <a
-            href="#contact"
-            className="block text-[var(--primaryGreen)] hover:text-[var(--primaryYellow)] border-2 border-[var(--primaryGreen)] hover:border-[var(--primaryYellow)] focus:ring-4 focus:outline-none focus:ring-[var(--primaryGreen)] font-bold rounded-lg  px-5 py-2.5 text-center me-2 mb-2"
-          >
+          <a href="#contact" className="btn-primary">
             Comenzar Proyecto
           </a>
-
-          <small>Hypernetics © 2025 All rights reserved</small>
         </div>
       </div>
 
-      <div className="w-12/12 flex items-center justify-center p-10">
+      <div className="container mx-auto flex flex-col items-center gap-6 px-5 pb-10">
         <Image
           src={hypernticsLogoHybrid}
           alt="Hypernetics Logo"
-          className="w-full lg:w-[600px]"
+          className="w-full opacity-90 lg:w-[600px]"
         />
+        <small className="text-[#5d6274]">
+          Hypernetics © {new Date().getFullYear()} — Todos los derechos
+          reservados
+        </small>
       </div>
     </footer>
   );
