@@ -80,35 +80,33 @@ const Header = () => {
           </svg>
         </button>
 
-        {isOpen && (
-          <div
-            id="navbar-dropdown"
-            className="glass-card absolute left-0 right-0 top-[calc(100%+0.5rem)] !bg-[rgba(19,21,30,0.92)] p-4 lg:hidden"
-          >
-            <ul className="flex flex-col gap-1">
-              {navLinks.map((item) => (
-                <li key={item.name}>
-                  <a
-                    href={item.href}
-                    onClick={closeMenu}
-                    className="block rounded-lg px-3 py-2 font-semibold text-[var(--primaryYellow)] transition-colors hover:text-[var(--primaryGreen)]"
-                  >
-                    {item.name}
-                  </a>
-                </li>
-              ))}
-              <li className="mt-2">
+        <div
+          id="navbar-dropdown"
+          className={`${isOpen ? "block" : "hidden"} glass-card absolute left-0 right-0 top-[calc(100%+0.5rem)] !bg-[rgba(19,21,30,0.92)] p-4 lg:hidden`}
+        >
+          <ul className="flex flex-col gap-1">
+            {navLinks.map((item) => (
+              <li key={item.name}>
                 <a
-                  href="#contact"
+                  href={item.href}
                   onClick={closeMenu}
-                  className="btn-primary w-full"
+                  className="block rounded-lg px-3 py-2 font-semibold text-[var(--primaryYellow)] transition-colors hover:text-[var(--primaryGreen)]"
                 >
-                  Comenzar Proyecto
+                  {item.name}
                 </a>
               </li>
-            </ul>
-          </div>
-        )}
+            ))}
+            <li className="mt-2">
+              <a
+                href="#contact"
+                onClick={closeMenu}
+                className="btn-primary w-full"
+              >
+                Comenzar Proyecto
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
   );
