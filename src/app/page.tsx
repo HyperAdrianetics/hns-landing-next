@@ -12,8 +12,8 @@ export default function Home() {
   return (
     <>
       <Header />
-      <Hero />
       <SectionsParticles>
+        <Hero />
         <About />
         <Services />
         <Process />
