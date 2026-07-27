@@ -20,11 +20,6 @@ body {
   color: white;
 }
 
-h1 {
-  font-size: 3rem;
-  color: var(--primaryYellow);
-}
-
 h1,
 h2,
 h3,
