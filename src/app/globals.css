@@ -200,6 +200,37 @@ body {
       animation: none;
     }
   }
+
+  .hero-circle {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+  }
+
+  .hero-circle::before,
+  .hero-circle::after {
+    content: "";
+    grid-area: 1 / 1;
+    border-radius: 50%;
+    aspect-ratio: 1;
+  }
+
+  .hero-circle::before {
+    width: min(30rem, 92%);
+    background: radial-gradient(
+      closest-side,
+      rgba(56, 62, 88, 0.5),
+      rgba(25, 28, 41, 0.25) 60%,
+      transparent 78%
+    );
+  }
+
+  .hero-circle::after {
+    width: min(35rem, 104%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
 }
 
 @keyframes breathe {

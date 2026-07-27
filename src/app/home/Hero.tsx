@@ -59,7 +59,8 @@ const Hero = () => {
             </div>
           </div>
 
-          <div className="relative h-[320px] lg:h-[480px]">
+          <div className="relative h-[380px] lg:h-[600px]">
+            <div aria-hidden className="hero-circle" />
             <div aria-hidden className="hero-glow" />
             <Image
               src={colorExplosion}
@@ -67,7 +68,7 @@ const Hero = () => {
               priority
               fill
               sizes="(min-width: 1024px) 48vw, 100vw"
-              className="object-contain scale-125 drop-shadow-[0_0_50px_rgba(240,111,174,0.22)]"
+              className="object-contain scale-[1.45] drop-shadow-[0_0_50px_rgba(240,111,174,0.22)]"
             />
           </div>
         </div>
