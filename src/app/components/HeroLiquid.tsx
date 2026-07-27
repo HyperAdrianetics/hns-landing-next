@@ -44,7 +44,11 @@ const HeroLiquid = ({ children }: { children: ReactNode }) => {
   }
 
   return (
+    // En modo nativo (HTML-in-Canvas activo) Liquid mueve los children dentro de
+    // un canvas posicionado en absoluto, así que su contenedor pierde el alto
+    // que le daba el contenido y colapsa a 0. El alto explícito lo evita.
     <Liquid
+      className="min-h-dvh"
       color={TRAIL_COLORS[colorIndex]}
       intensity={0.9}
       blend={2}
