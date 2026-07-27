@@ -20,11 +20,6 @@ body {
   color: white;
 }
 
-.bg-color-explosion {
-  background: transparent url("../../public/color-explosion.png") no-repeat
-    scroll center / cover;
-}
-
 .bg-trabajemos {
   background: transparent url("assets/bg-trabajemos.jpg") no-repeat scroll
     center / cover;
@@ -212,6 +207,24 @@ h4 {
 
 @media (prefers-reduced-motion: reduce) {
   .ambient-blob {
+    animation: none;
+  }
+}
+
+.hero-glow {
+  position: absolute;
+  inset: 10%;
+  background: radial-gradient(
+    closest-side,
+    rgba(240, 111, 174, 0.16),
+    transparent 72%
+  );
+  filter: blur(40px);
+  animation: breathe 8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-glow {
     animation: none;
   }
 }
