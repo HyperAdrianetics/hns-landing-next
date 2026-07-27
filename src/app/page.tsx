@@ -3,7 +3,7 @@ import Hero from "./home/Hero";
 import About from "./home/About";
 import Services from "./home/Services";
 import Process from "./home/Process";
-import Technologies from "./home/Techonolgies";
+import Technologies from "./home/Technologies";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
