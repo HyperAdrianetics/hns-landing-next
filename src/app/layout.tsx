@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Open_Sans, Space_Grotesk } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-import ParticlesBackground from "./components/ParticlesBackground";
+import AmbientBackground from "./components/AmbientBackground";
 
 const openSans = Open_Sans({
   subsets: ["latin"],
@@ -77,7 +77,7 @@ export default function RootLayout({
           `}
         </Script>
 
-        <ParticlesBackground />
+        <AmbientBackground />
         {children}
       </body>
     </html>

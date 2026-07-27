@@ -142,3 +142,76 @@ h4 {
     transform: none;
   }
 }
+
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ambient-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: breathe 10s ease-in-out infinite;
+}
+
+.ambient-blob--magenta {
+  top: 15%;
+  left: -10%;
+  width: 45vw;
+  height: 45vw;
+  background: radial-gradient(
+    closest-side,
+    rgba(240, 111, 174, 0.09),
+    transparent 70%
+  );
+}
+
+.ambient-blob--gold {
+  top: 45%;
+  right: -12%;
+  width: 42vw;
+  height: 42vw;
+  background: radial-gradient(
+    closest-side,
+    rgba(232, 182, 76, 0.08),
+    transparent 70%
+  );
+  animation-duration: 12s;
+  animation-delay: 3s;
+}
+
+.ambient-blob--green {
+  bottom: -10%;
+  left: 30%;
+  width: 38vw;
+  height: 38vw;
+  background: radial-gradient(
+    closest-side,
+    rgba(167, 207, 158, 0.07),
+    transparent 70%
+  );
+  animation-duration: 13s;
+  animation-delay: 5s;
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-blob {
+    animation: none;
+  }
+}
