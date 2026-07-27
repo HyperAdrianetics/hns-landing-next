@@ -12,28 +12,24 @@ const cards = [
     subtitle: "Código con propósito. Resultados para tu negocio.",
     icon: vector,
     hairline: "hairline--brand",
-    highlight: false,
   },
   {
     title: "Calidad garantizada",
     subtitle: "Software robusto que perdura.",
     icon: quality,
     hairline: "hairline--green",
-    highlight: true,
   },
   {
     title: "Colaboración transparente",
     subtitle: "Tu equipo extendido.",
     icon: handshake,
     hairline: "hairline--gold",
-    highlight: false,
   },
   {
     title: "Innovación constante",
     subtitle: "Innovación que te diferencia.",
     icon: rocket,
     hairline: "hairline--brand",
-    highlight: false,
   },
 ];
 
@@ -72,11 +68,7 @@ const About = () => {
         {cards.map((card) => (
           <article
             key={card.title}
-            className={`glass-card glass-card--hover flex flex-col gap-3 p-8 ${
-              card.highlight
-                ? "!border-[rgba(167,207,158,0.35)] !bg-[rgba(167,207,158,0.10)]"
-                : ""
-            }`}
+            className="glass-card glass-card--hover flex flex-col gap-3 p-8"
           >
             <div className={`hairline ${card.hairline}`} />
             <Image src={card.icon} alt="" width={30} />
