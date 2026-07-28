@@ -51,9 +51,10 @@ const HeroLiquid = ({ children }: { children: ReactNode }) => {
       className="min-h-dvh"
       color={TRAIL_COLORS[colorIndex]}
       intensity={0.9}
-      blend={2}
-      densityDissipation={0.93}
-      distortion={0.5}
+      blend={12}
+      densityDissipation={0.9}
+      force={0.7}
+      distortion={4}
     >
       {children}
     </Liquid>
