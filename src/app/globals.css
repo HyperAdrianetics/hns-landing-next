@@ -201,6 +201,14 @@ body {
     }
   }
 
+  /* El contenedor de la imagen es un container query de tamaño para que el
+     círculo pueda medirse contra la dimensión MENOR (cqmin): en tablets el
+     contenedor es ancho pero bajo, y dimensionar solo por ancho hacía que el
+     anillo desbordara verticalmente contra los stats y el fold. */
+  .hero-media {
+    container-type: size;
+  }
+
   .hero-circle {
     position: absolute;
     inset: 0;
@@ -219,6 +227,7 @@ body {
 
   .hero-circle::before {
     width: min(30rem, 92%);
+    width: min(30rem, 100cqmin);
     background: radial-gradient(
       closest-side,
       rgba(56, 62, 88, 0.5),
@@ -229,6 +238,7 @@ body {
 
   .hero-circle::after {
     width: min(35rem, 104%);
+    width: min(35rem, 112cqmin);
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 }

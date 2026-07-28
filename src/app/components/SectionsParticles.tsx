@@ -24,6 +24,26 @@ const SectionsParticles = ({ children }: { children: ReactNode }) => {
     setEnabled(finePointer && !reducedMotion);
   }, []);
 
+  // En modo nativo, ParticleScroll captura la página con drawElementImage y solo
+  // recaptura en scroll/resize. Si una imagen carga o se recarga DESPUÉS de la
+  // captura (p. ej. next/image cambia de fuente al cruzar un breakpoint), esa
+  // imagen desaparece de la pantalla hasta el siguiente scroll. Este listener
+  // pide una recaptura cada vez que termina de cargar una imagen. El evento
+  // `load` no burbujea, pero sí es observable en fase de captura.
+  useEffect(() => {
+    if (!enabled) return;
+    const onImgLoad = (e: Event) => {
+      if (!(e.target instanceof HTMLImageElement)) return;
+      document
+        .querySelectorAll<HTMLCanvasElement & { requestPaint?: () => void }>(
+          "canvas[layoutsubtree]"
+        )
+        .forEach((c) => c.requestPaint?.());
+    };
+    window.addEventListener("load", onImgLoad, true);
+    return () => window.removeEventListener("load", onImgLoad, true);
+  }, [enabled]);
+
   if (!enabled) {
     return <>{children}</>;
   }
