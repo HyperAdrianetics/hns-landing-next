@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, type ReactNode } from "react";
-import Liquid from "./canvasui/Liquid";
+import Liquid, { supportsHtmlInCanvas } from "./canvasui/Liquid";
 
 // El modo `rainbow` de Liquid deriva el color de la dirección del flujo, así que
 // produce azules y turquesas ajenos a la marca según hacia dónde mueva el cursor
@@ -15,9 +15,17 @@ const TRAIL_COLORS: [number, number, number][] = [
 
 const COLOR_ROTATION_MS = 2200;
 
-// Monta el efecto solo donde aporta: puntero fino (mouse) y sin
-// preferencia de movimiento reducido. En cualquier otro caso los
-// children se renderizan tal cual.
+// Monta el efecto solo donde aporta Y donde puede convivir con ParticleScroll:
+//
+// - Puntero fino y sin `prefers-reduced-motion`, como siempre.
+// - SOLO cuando la API HTML-in-Canvas NO está disponible. Con la API activa
+//   (origin trial / flag), ParticleScroll captura la página entera en su canvas
+//   y el navegador rechaza los canvas del Liquid dentro de esa captura
+//   ("NotSupportedError: Nested canvases are not supported"), lo que además
+//   dejaba la página en blanco al redimensionar la ventana. Decisión de diseño:
+//   en modo nativo gana ParticleScroll; Liquid queda para los navegadores sin
+//   la API (Safari/Firefox), donde corre como overlay WebGL sin captura y sin
+//   conflicto.
 const HeroLiquid = ({ children }: { children: ReactNode }) => {
   const [enabled, setEnabled] = useState(false);
   const [colorIndex, setColorIndex] = useState(0);
@@ -27,7 +35,7 @@ const HeroLiquid = ({ children }: { children: ReactNode }) => {
     const reducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
-    setEnabled(finePointer && !reducedMotion);
+    setEnabled(finePointer && !reducedMotion && !supportsHtmlInCanvas());
   }, []);
 
   useEffect(() => {
