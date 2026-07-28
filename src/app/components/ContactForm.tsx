@@ -124,19 +124,6 @@ const ContactForm = () => {
       className="glass-card flex w-full flex-col gap-6 !rounded-[20px] p-8 text-white lg:p-10"
     >
       <div className="hairline hairline--brand" />
-      {/* Mensaje de estado */}
-      {submitStatus.type && (
-        <div
-          className={`p-4 rounded-lg ${
-            submitStatus.type === "success"
-              ? "bg-green-900/30 border border-green-500 text-green-300"
-              : "bg-red-900/30 border border-red-500 text-red-300"
-          }`}
-        >
-          {submitStatus.message}
-        </div>
-      )}
-
       <input
         type="text"
         name="name"
@@ -290,6 +277,20 @@ const ContactForm = () => {
       >
         {isSubmitting ? "Enviando..." : "Enviar"}
       </button>
+
+      {/* Mensaje de estado: debajo del botón, junto a donde el usuario acaba
+          de hacer clic (mejora de UX heredada de producción) */}
+      {submitStatus.type && (
+        <div
+          className={`p-4 rounded-lg ${
+            submitStatus.type === "success"
+              ? "bg-green-900/30 border border-green-500 text-green-300"
+              : "bg-red-900/30 border border-red-500 text-red-300"
+          }`}
+        >
+          {submitStatus.message}
+        </div>
+      )}
     </form>
   );
 };
