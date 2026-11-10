@@ -111,12 +111,12 @@ void main() {
 
   // Relieve y luz desde arriba a la izquierda.
   vec2 hg = g / max(f * f, 1e-3);
-  vec3 n = normalize(vec3(-hg * 0.16, 1.0));
+  vec3 n = normalize(vec3(-hg * 0.14, 1.0));
   vec3 L = normalize(vec3(-0.45, 0.55, 0.72));
   vec3 H = normalize(L + vec3(0.0, 0.0, 1.0));
   float diff = 0.74 + 0.26 * max(dot(n, L), 0.0);
   float nh = max(dot(n, H), 0.0);
-  float spec = pow(nh, 38.0) * 0.55 + pow(nh, 7.0) * 0.07;
+  float spec = pow(nh, 56.0) * 0.6 + pow(nh, 9.0) * 0.04;
   float rim = 1.0 - smoothstep(1.0, 1.7, f);
   vec3 lit = col * diff * (1.0 - 0.16 * rim) + vec3(spec);
 

@@ -1,127 +1,54 @@
-import React from "react";
 import Image from "next/image";
-import hypernticsLogoHybrid from "../../../public/logo-full-hybrid.svg";
 import linkedinLogo from "../assets/icons/linkedin.svg";
 import githubLogo from "../assets/icons/github.svg";
 import xLogo from "../assets/icons/x.svg";
 
+const socials = [
+  { href: "https://www.linkedin.com/company/hypernetics-mx/", label: "LinkedIn de Hypernetics", icon: linkedinLogo },
+  { href: "https://github.com/hypernetics-mx", label: "GitHub de Hypernetics", icon: githubLogo },
+  { href: "https://x.com/hyperneticsmx", label: "X (Twitter) de Hypernetics", icon: xLogo },
+];
+
+// Footer compacto: una fila de enlaces y, como firma, el nombre de la marca
+// en letra enorme y casi del color del fondo.
 const Footer = () => {
   return (
-    <footer className="relative mt-24 bg-[#0a0c13]">
-      <div
-        aria-hidden
-        className="h-[2px] w-full bg-[linear-gradient(90deg,var(--accentMagenta),var(--accentGold),var(--primaryGreen))]"
-      />
-      <div className="container mx-auto grid gap-10 px-5 py-14 text-center text-sm font-light md:grid-cols-2 md:text-left lg:grid-cols-4">
-        <div>
-          <p className="font-display mb-4 font-semibold text-white">
-            Navegación
-          </p>
-          <ul className="flex flex-col gap-3">
+    <footer className="site-footer">
+      <div className="container mx-auto px-5">
+        <div className="flex flex-col gap-6 border-t border-[rgba(255,255,255,0.08)] pt-8 text-sm text-[#8b91a3] md:flex-row md:items-center md:justify-between">
+          <ul className="flex flex-wrap gap-x-6 gap-y-2">
             <li>
-              <a href="#about" className="transition-colors hover:text-[var(--primaryGreen)]">
-                Nosotros
-              </a>
-            </li>
-            <li>
-              <a href="#services" className="transition-colors hover:text-[var(--primaryGreen)]">
-                Servicios
-              </a>
-            </li>
-            <li>
-              <a href="#process" className="transition-colors hover:text-[var(--primaryGreen)]">
-                Proceso
-              </a>
-            </li>
-            <li>
-              <a href="#contact" className="transition-colors hover:text-[var(--primaryGreen)]">
-                Contacto
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <p className="font-display mb-4 font-semibold text-white">Contacto</p>
-          <ul className="flex flex-col gap-3">
-            <li>
-              <a href="mailto:contacto@hypernetics.com.mx" className="transition-colors hover:text-[var(--primaryGreen)]">
-                contacto@hypernetics.com.mx
-              </a>
-            </li>
-            <li>
-              <a href="tel:+525544843991" className="transition-colors hover:text-[var(--primaryGreen)]">
-                +52 (55) 4484-3991
-              </a>
-            </li>
-            <li>Ciudad de México | Querétaro</li>
-            <li className="flex justify-center gap-5 md:justify-start">
-              <a
-                href="https://www.linkedin.com/company/hypernetics-mx/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn de Hypernetics"
-              >
-                <Image src={linkedinLogo} alt="LinkedIn" />
-              </a>
-              <a
-                href="https://github.com/hypernetics-mx"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub de Hypernetics"
-              >
-                <Image src={githubLogo} alt="GitHub" />
-              </a>
-              <a
-                href="https://x.com/hyperneticsmx"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="X (Twitter) de Hypernetics"
-              >
-                <Image src={xLogo} alt="X (Twitter)" />
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <p className="font-display mb-4 font-semibold text-white">Legal</p>
-          <ul className="flex flex-col gap-3">
-            <li>
-              <a
-                href="/aviso-de-privacidad"
-                className="transition-colors hover:text-[var(--primaryGreen)]"
-              >
+              <a href="/aviso-de-privacidad" className="transition-colors hover:text-[var(--primaryGreen)]">
                 Aviso de Privacidad
               </a>
             </li>
             <li>
-              <a
-                href="/terminos-y-condiciones"
-                className="transition-colors hover:text-[var(--primaryGreen)]"
-              >
+              <a href="/terminos-y-condiciones" className="transition-colors hover:text-[var(--primaryGreen)]">
                 Términos y Condiciones
               </a>
             </li>
+            <li>Ciudad de México | Querétaro</li>
+          </ul>
+          <ul className="flex gap-5">
+            {socials.map((s) => (
+              <li key={s.href}>
+                <a
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label}
+                  className="block opacity-70 transition-opacity hover:opacity-100"
+                >
+                  <Image src={s.icon} alt="" />
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
-        <div className="flex flex-col items-center gap-5 md:items-start">
-          <p className="text-[var(--primaryYellow)]">
-            Transformamos ideas en soluciones tecnológicas innovadoras.
-            Desarrollo de software personalizado que impulsa el crecimiento de
-            tu negocio.
-          </p>
-          <a href="#contact" className="btn-primary">
-            Comenzar Proyecto
-          </a>
-        </div>
-      </div>
-
-      <div className="container mx-auto flex flex-col items-center gap-6 px-5 pb-10">
-        <Image
-          src={hypernticsLogoHybrid}
-          alt="Hypernetics Logo"
-          className="w-full opacity-90 lg:w-[600px]"
-        />
-        <small className="text-[#5d6274]">
+        <p aria-hidden className="footer-signature">
+          HYPERNETICS
+        </p>
+        <small className="block pb-8 text-[#5d6274]">
           Hypernetics © {new Date().getFullYear()} — Todos los derechos
           reservados
         </small>

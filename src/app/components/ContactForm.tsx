@@ -16,7 +16,7 @@ interface FormData {
 }
 
 const fieldClasses =
-  "rounded-xl border border-[rgba(255,255,255,0.12)] bg-[rgba(255,255,255,0.05)] px-4 py-3 text-white placeholder:text-[#8b91a3] focus:border-[var(--primaryGreen)] focus:outline-none";
+  "w-full rounded-none border-0 border-b border-[rgba(255,255,255,0.18)] bg-transparent px-0 py-3 text-[var(--primaryYellow)] placeholder:text-[#8b91a3] transition-[border-color,box-shadow] duration-300 focus:border-[var(--primaryGreen)] focus:shadow-[0_1px_0_0_var(--primaryGreen)] focus:outline-none";
 
 const ContactForm = () => {
   const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
@@ -121,9 +121,8 @@ const ContactForm = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="glass-card flex w-full flex-col gap-6 !rounded-[20px] p-8 text-white lg:p-10"
+      className="flex w-full flex-col gap-5 text-white"
     >
-      <div className="hairline hairline--brand" />
       <input
         type="text"
         name="name"
@@ -272,7 +271,7 @@ const ContactForm = () => {
 
       <button
         type="submit"
-        className="btn-primary mt-2 disabled:cursor-not-allowed disabled:opacity-50"
+        className="btn-paint mt-3 self-start"
         disabled={!acceptedPrivacy || isSubmitting}
       >
         {isSubmitting ? "Enviando..." : "Enviar"}

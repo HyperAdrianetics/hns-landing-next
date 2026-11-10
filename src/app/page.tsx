@@ -1,8 +1,9 @@
 import Header from "./components/Header";
 import Hero from "./home/Hero";
-import About from "./home/About";
+import Manifesto from "./home/Manifesto";
 import Services from "./home/Services";
 import Process from "./home/Process";
+import Pause from "./home/Pause";
 import Technologies from "./home/Technologies";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
@@ -13,9 +14,10 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <About />
+        <Manifesto />
         <Services />
         <Process />
+        <Pause />
         <Technologies />
         <Contact />
       </main>
