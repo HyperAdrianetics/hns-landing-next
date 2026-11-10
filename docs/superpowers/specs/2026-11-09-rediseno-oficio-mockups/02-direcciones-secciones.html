@@ -1,0 +1,231 @@
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  .cards.big { grid-template-columns: 1fr; gap: 2rem; max-width: 1100px; margin: 0 auto; }
+  .mx { position: relative; overflow: hidden; background: #13151e; font-family: 'Open Sans', sans-serif; color: #b9bdc9; container-type: inline-size; }
+  .mx * { box-sizing: border-box; }
+  .mx .in { padding: 5cqw 6cqw; position: relative; z-index: 2; }
+  .mx .label { font-family: 'Space Grotesk'; text-transform: uppercase; letter-spacing: .22em; color: #a7cf9e; font-size: .95cqw; }
+  .mx h2, .mx h3, .mx h4 { font-family: 'Space Grotesk'; color: #d2d2af; margin: 0; letter-spacing: -.02em; }
+  .mx :where(p) { margin: 0; }
+  .mx .grain { position: absolute; inset: 0; opacity: .1; mix-blend-mode: overlay; pointer-events: none; z-index: 3;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>"); }
+  .mx .field { position: absolute; border-radius: 50%; filter: blur(80px); opacity: .28; z-index: 0; }
+
+  /* Texto relleno de líquido en movimiento */
+  .liq { background:
+      radial-gradient(circle at 20% 30%, #f06fae 0 18%, transparent 40%),
+      radial-gradient(circle at 70% 60%, #e8b64c 0 20%, transparent 45%),
+      radial-gradient(circle at 45% 85%, #a7cf9e 0 16%, transparent 40%),
+      radial-gradient(circle at 85% 15%, #f06fae 0 14%, transparent 38%),
+      #e8b64c;
+    background-size: 220% 220%; -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: flow 7s ease-in-out infinite alternate; }
+  @keyframes flow { 0% { background-position: 0% 0%; } 100% { background-position: 100% 100%; } }
+
+  /* Botón con relleno líquido al pasar el mouse */
+  .lbtn { position: relative; display: inline-flex; align-items: center; gap: .8cqw; overflow: hidden; isolation: isolate;
+    font-family: 'Space Grotesk'; font-weight: 600; font-size: 1.15cqw; padding: 1.1cqw 2.4cqw; border-radius: 99px;
+    border: 1px solid rgba(210,210,175,.4); color: #d2d2af; cursor: pointer; transition: color .4s; }
+  .lbtn::before { content: ""; position: absolute; z-index: -1; left: 50%; top: 120%; width: 140%; aspect-ratio: 1; border-radius: 42% 58% 55% 45%;
+    background: linear-gradient(120deg, #f06fae, #e8b64c 55%, #a7cf9e); transform: translate(-50%, 0) rotate(0deg); transition: top .6s cubic-bezier(.3,0,.2,1), transform 1.2s; }
+  .lbtn:hover { color: #13151e; border-color: transparent; }
+  .lbtn:hover::before { top: -60%; transform: translate(-50%, 0) rotate(120deg); }
+  .hint { font-size: .8cqw; color: #6b7185; margin-left: 1cqw; font-style: italic; }
+
+  /* ---------- 1 · Galería ---------- */
+  .g-top { display: grid; grid-template-columns: 1.5fr 1fr; gap: 5cqw; align-items: end; }
+  .g-manif { font-family: 'Space Grotesk'; font-size: 3.1cqw; line-height: 1.12; color: #d2d2af; font-weight: 500; letter-spacing: -.02em; margin-top: 1.5cqw; }
+  .g-ten { font-family: 'Space Grotesk'; font-weight: 700; font-size: 13cqw; line-height: .8; letter-spacing: -.05em; }
+  .g-cap { font-size: 1.15cqw; color: #b9bdc9; margin-top: 1.5cqw; max-width: 30ch; line-height: 1.5; }
+  .g-rule { height: 1px; background: linear-gradient(90deg, rgba(240,111,174,.5), rgba(232,182,76,.4), transparent); margin: 5cqw 0 4cqw; }
+  .g-works { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3cqw; margin-top: 3cqw; }
+  .g-frame { background: #0f1118; padding: 1.2cqw; border: 1px solid rgba(255,255,255,.08); box-shadow: 0 2cqw 4cqw rgba(0,0,0,.45); transition: transform .5s; }
+  .g-frame:hover { transform: translateY(-.6cqw); }
+  .g-frame svg { display: block; width: 100%; aspect-ratio: 4/3; background: #191c29; }
+  .g-cedula { margin-top: 1.4cqw; padding-left: 1cqw; border-left: 2px solid #e8b64c; }
+  .g-cedula .n { font-family: 'Space Grotesk'; font-size: .85cqw; color: #8b91a3; letter-spacing: .15em; }
+  .g-cedula h4 { font-size: 1.35cqw; margin-top: .4cqw; }
+  .g-cedula .t { font-size: .85cqw; color: #a7cf9e; margin-top: .4cqw; font-style: italic; }
+  .g-cedula p { font-size: .9cqw; line-height: 1.5; margin-top: .6cqw; }
+
+  /* ---------- 2 · Lista de oficio ---------- */
+  .l-manif { font-family: 'Space Grotesk'; font-size: 3.3cqw; line-height: 1.15; font-weight: 500; letter-spacing: -.02em; text-align: center; max-width: 34ch; margin: 2cqw auto 0;
+    background: linear-gradient(90deg, #d2d2af 0 50%, #3a3f52 50% 100%); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: reveal 6s ease-in-out infinite; }
+  @keyframes reveal { 0% { background-position: 100% 0; } 70%, 100% { background-position: 0% 0; } }
+  .l-proof { text-align: center; margin-top: 3cqw; font-size: 1.35cqw; color: #b9bdc9; }
+  .l-pill { display: inline-block; font-family: 'Space Grotesk'; font-weight: 700; color: #13151e; padding: .2cqw 1.3cqw; margin: 0 .4cqw;
+    border-radius: 46% 54% 50% 50% / 60% 55% 45% 40%; background: linear-gradient(120deg, #f06fae, #e8b64c); animation: wob 5s ease-in-out infinite alternate; }
+  @keyframes wob { 0% { border-radius: 46% 54% 50% 50% / 60% 55% 45% 40%; } 100% { border-radius: 58% 42% 46% 54% / 45% 60% 40% 55%; } }
+  .l-list { margin-top: 5cqw; border-top: 1px solid rgba(255,255,255,.1); }
+  .l-row { position: relative; overflow: hidden; display: grid; grid-template-columns: 6cqw 1fr auto; align-items: center; padding: 2cqw 1cqw; border-bottom: 1px solid rgba(255,255,255,.1); cursor: pointer; isolation: isolate; }
+  .l-row .n { font-family: 'Space Grotesk'; font-size: 1cqw; color: #8b91a3; }
+  .l-row h4 { font-size: 2.6cqw; font-weight: 500; transition: color .4s, transform .5s; }
+  .l-row .arrow { font-family: 'Space Grotesk'; font-size: 2cqw; color: #a7cf9e; transition: transform .5s; }
+  .l-row .desc { grid-column: 2 / 3; max-height: 0; opacity: 0; overflow: hidden; font-size: 1.05cqw; line-height: 1.5; transition: max-height .5s, opacity .5s, margin .5s; max-width: 60ch; }
+  .l-row::before { content: ""; position: absolute; z-index: -1; left: -10%; top: 50%; width: 0; height: 260%; transform: translateY(-50%); border-radius: 50%;
+    background: linear-gradient(100deg, rgba(240,111,174,.9), rgba(232,182,76,.85) 60%, rgba(167,207,158,.8)); filter: blur(10px); transition: width .7s cubic-bezier(.3,0,.2,1); }
+  .l-row:hover::before, .l-row.demo::before { width: 125%; }
+  .l-row:hover h4, .l-row.demo h4 { color: #13151e; transform: translateX(1cqw); }
+  .l-row:hover .n, .l-row.demo .n, .l-row:hover .desc, .l-row.demo .desc { color: #13151e; }
+  .l-row:hover .arrow, .l-row.demo .arrow { color: #13151e; transform: rotate(-45deg); }
+  .l-row:hover .desc, .l-row.demo .desc { max-height: 6cqw; opacity: 1; margin-top: .8cqw; }
+  .l-list:hover .l-row.demo:not(:hover)::before { width: 0; }
+  .l-list:hover .l-row.demo:not(:hover) h4 { color: #d2d2af; transform: none; }
+  .l-list:hover .l-row.demo:not(:hover) .desc { max-height: 0; opacity: 0; margin-top: 0; }
+  .l-list:hover .l-row.demo:not(:hover) .n { color: #8b91a3; }
+  .l-list:hover .l-row.demo:not(:hover) .arrow { color: #a7cf9e; transform: none; }
+
+  /* ---------- 3 · Relato con pintura ---------- */
+  .r-wrap { position: relative; height: 92cqw; }
+  .r-stroke { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+  .r-path { stroke-dasharray: 3200; stroke-dashoffset: 3200; animation: draw 7s cubic-bezier(.5,0,.2,1) infinite; }
+  @keyframes draw { 0% { stroke-dashoffset: 3200; } 70%, 100% { stroke-dashoffset: 0; } }
+  .r-node { position: absolute; z-index: 2; }
+  .r-node h3 { font-size: 2.2cqw; line-height: 1.15; }
+  .r-node p { font-size: 1.05cqw; line-height: 1.55; margin-top: .8cqw; }
+  .r-dot { position: absolute; width: 2.2cqw; height: 2.2cqw; border-radius: 50%; z-index: 2; box-shadow: 0 0 2cqw currentColor; }
+</style>
+
+<h2>¿Cómo debería sentirse la información al ir bajando?</h2>
+<p class="subtitle">Tres maneras de presentar las mismas secciones: primero el manifiesto con la experiencia del equipo, y luego Servicios. Pasa el mouse por los botones y por las filas, porque los efectos están activos. Los textos del manifiesto son un borrador.</p>
+
+<div class="cards big">
+
+  <!-- ================= 1 · GALERÍA ================= -->
+  <div class="card" data-choice="galeria" onclick="toggleSelect(this)">
+    <div class="mx">
+      <div class="field" style="left:-10%;top:-10%;width:45%;height:40%;background:#f06fae"></div>
+      <div class="field" style="right:-10%;bottom:10%;width:40%;height:35%;background:#3a3f8f;opacity:.5"></div>
+      <div class="in">
+        <div class="g-top">
+          <div>
+            <p class="label">Nº 01 — Manifiesto</p>
+            <p class="g-manif">No nos gusta que nos regalen nada. Cada proyecto nos lo ganamos con <span class="liq">trabajo bien hecho</span>, y nuestra mejor recompensa es <span class="liq">la satisfacción de quien confía en nosotros</span>.</p>
+          </div>
+          <div>
+            <div class="g-ten liq">10+</div>
+            <p class="g-cap">años de experiencia de cada persona del equipo. Trayectoria en startups unicornio y consultoras globales.</p>
+          </div>
+        </div>
+        <div class="g-rule"></div>
+        <div style="display:flex;justify-content:space-between;align-items:end">
+          <div>
+            <p class="label">Nº 02 — Servicios</p>
+            <h2 style="font-size:3.4cqw;margin-top:1cqw">Nuestra obra</h2>
+          </div>
+          <span class="lbtn">Ver los seis servicios <span>→</span></span>
+        </div>
+        <div class="g-works">
+          <div>
+            <div class="g-frame"><svg viewBox="0 0 400 300"><defs><filter id="gw1" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="12"/><feColorMatrix values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 22 -9" result="g"/><feGaussianBlur in="g" stdDeviation="5" result="gb"/><feSpecularLighting in="gb" surfaceScale="5" specularExponent="22" lighting-color="#fff" result="s"><fePointLight x="100" y="-80" z="260"/></feSpecularLighting><feComposite in="s" in2="g" operator="in" result="si"/><feComposite in="g" in2="si" operator="arithmetic" k2="1" k3=".6"/></filter></defs><g filter="url(#gw1)"><circle cx="170" cy="150" r="70" fill="#f06fae" style="animation:d1 8s ease-in-out infinite alternate"/><circle cx="240" cy="140" r="60" fill="#e8b64c" style="animation:d2 9s ease-in-out infinite alternate"/><circle cx="210" cy="200" r="40" fill="#a7cf9e" style="animation:d3 7s ease-in-out infinite alternate"/></g></svg></div>
+            <div class="g-cedula"><p class="n">OBRA 01</p><h4>Software a la medida</h4><p class="t">Técnica: React, Node.js, Cloud</p><p>Soluciones que se adaptan a tu negocio, con resultados medibles.</p></div>
+          </div>
+          <div>
+            <div class="g-frame"><svg viewBox="0 0 400 300"><defs><filter id="gw2" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="12"/><feColorMatrix values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 22 -9" result="g"/><feGaussianBlur in="g" stdDeviation="5" result="gb"/><feSpecularLighting in="gb" surfaceScale="5" specularExponent="22" lighting-color="#fff" result="s"><fePointLight x="100" y="-80" z="260"/></feSpecularLighting><feComposite in="s" in2="g" operator="in" result="si"/><feComposite in="g" in2="si" operator="arithmetic" k2="1" k3=".6"/></filter></defs><g filter="url(#gw2)"><circle cx="200" cy="120" r="55" fill="#a7cf9e" style="animation:d4 9s ease-in-out infinite alternate"/><circle cx="160" cy="190" r="50" fill="#3a3f8f" style="animation:d5 8s ease-in-out infinite alternate"/><circle cx="250" cy="190" r="45" fill="#e8b64c" style="animation:d6 7s ease-in-out infinite alternate"/></g></svg></div>
+            <div class="g-cedula" style="border-color:#a7cf9e"><p class="n">OBRA 02</p><h4>Aplicaciones móviles</h4><p class="t">Técnica: React Native, Flutter</p><p>Apps para iOS y Android que conectan con tus usuarios.</p></div>
+          </div>
+          <div>
+            <div class="g-frame"><svg viewBox="0 0 400 300"><defs><filter id="gw3" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="12"/><feColorMatrix values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 22 -9" result="g"/><feGaussianBlur in="g" stdDeviation="5" result="gb"/><feSpecularLighting in="gb" surfaceScale="5" specularExponent="22" lighting-color="#fff" result="s"><fePointLight x="100" y="-80" z="260"/></feSpecularLighting><feComposite in="s" in2="g" operator="in" result="si"/><feComposite in="g" in2="si" operator="arithmetic" k2="1" k3=".6"/></filter></defs><g filter="url(#gw3)"><circle cx="150" cy="140" r="50" fill="#b5553f" style="animation:d2 8s ease-in-out infinite alternate"/><circle cx="230" cy="160" r="70" fill="#f06fae" style="animation:d3 10s ease-in-out infinite alternate"/><circle cx="290" cy="110" r="30" fill="#e8b64c" style="animation:d1 6s ease-in-out infinite alternate"/></g></svg></div>
+            <div class="g-cedula" style="border-color:#f06fae"><p class="n">OBRA 03</p><h4>Desarrollo web</h4><p class="t">Técnica: Next.js, TypeScript</p><p>Sitios y aplicaciones web rápidas, visibles y responsivas.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="grain"></div>
+    </div>
+    <div class="card-body">
+      <h3>1 · Galería</h3>
+      <p>La página se recorre como una exposición. El manifiesto va en letra grande, como el texto de entrada a una sala. Cada servicio es una "obra" con su propia pintura líquida y una cédula de museo que dice qué es y con qué técnica se hace. Se siente tranquilo, serio y de calidad.</p>
+    </div>
+  </div>
+
+  <!-- ================= 2 · LISTA DE OFICIO ================= -->
+  <div class="card" data-choice="lista" onclick="toggleSelect(this)">
+    <div class="mx">
+      <div class="field" style="left:30%;top:-15%;width:40%;height:35%;background:#e8b64c;opacity:.18"></div>
+      <div class="in">
+        <p class="label" style="text-align:center">Manifiesto</p>
+        <p class="l-manif">No nos gusta que nos regalen nada. Cada proyecto nos lo ganamos con trabajo bien hecho, y nuestra mejor recompensa es la satisfacción de quien confía en nosotros.</p>
+        <p class="l-proof">Cada persona del equipo trae <span class="l-pill">10+ años</span> de oficio, con trayectoria en startups unicornio y consultoras globales.</p>
+        <div style="display:flex;justify-content:space-between;align-items:end;margin-top:6cqw">
+          <div><p class="label">Servicios</p><h2 style="font-size:3.4cqw;margin-top:1cqw">Lo que hacemos</h2></div>
+          <span class="lbtn">Platícanos tu proyecto <span>→</span></span>
+        </div>
+        <div class="l-list">
+          <div class="l-row"><span class="n">01</span><h4>Software a la medida</h4><span class="arrow">→</span><p class="desc">Soluciones que se adaptan a tu negocio, con tecnología de vanguardia, diseño centrado en el usuario y resultados medibles.</p></div>
+          <div class="l-row demo"><span class="n">02</span><h4>Aplicaciones móviles</h4><span class="arrow">→</span><p class="desc">Apps nativas e híbridas para iOS y Android que conectan con tus usuarios. React Native, Flutter, diseño UX/UI.</p></div>
+          <div class="l-row"><span class="n">03</span><h4>Desarrollo web</h4><span class="arrow">→</span><p class="desc">Sitios y aplicaciones web responsivas, con alto rendimiento y visibilidad para potenciar tu marca.</p></div>
+          <div class="l-row"><span class="n">04</span><h4>Arquitectura de datos</h4><span class="arrow">→</span><p class="desc">Almacenamiento, procesamiento y análisis para convertir información en decisiones.</p></div>
+          <div class="l-row"><span class="n">05</span><h4>Soluciones cloud</h4><span class="arrow">→</span><p class="desc">Migramos y optimizamos tus servicios en la nube para escalar con seguridad.</p></div>
+          <div class="l-row"><span class="n">06</span><h4>Consultoría técnica</h4><span class="arrow">→</span><p class="desc">Revisión de arquitectura, selección de herramientas, buenas prácticas y roadmap.</p></div>
+        </div>
+      </div>
+      <div class="grain"></div>
+    </div>
+    <div class="card-body">
+      <h3>2 · Lista de oficio</h3>
+      <p>Es sobria, tipográfica y segura de sí misma, como los estudios de diseño de alto nivel. El manifiesto se ilumina palabra por palabra mientras bajas. Los servicios son una lista grande: al pasar el mouse, la pintura inunda la fila y aparece el detalle.</p>
+    </div>
+  </div>
+
+  <!-- ================= 3 · RELATO CON PINTURA ================= -->
+  <div class="card" data-choice="relato" onclick="toggleSelect(this)">
+    <div class="mx">
+      <div class="r-wrap">
+        <svg class="r-stroke" viewBox="0 0 1000 920" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="rg" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#f06fae"/><stop offset=".4" stop-color="#e8b64c"/><stop offset=".75" stop-color="#a7cf9e"/><stop offset="1" stop-color="#d2d2af"/>
+            </linearGradient>
+            <filter id="rgl" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+              <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="b"/>
+              <feSpecularLighting in="b" surfaceScale="4" specularExponent="20" lighting-color="#fff" result="s"><fePointLight x="200" y="-200" z="300"/></feSpecularLighting>
+              <feComposite in="s" in2="SourceGraphic" operator="in" result="si"/>
+              <feComposite in="SourceGraphic" in2="si" operator="arithmetic" k2="1" k3=".55"/>
+            </filter>
+          </defs>
+          <path class="r-path" d="M 760 -20 C 760 90, 600 120, 560 220 C 520 320, 400 320, 420 400 C 440 480, 620 470, 600 560 C 580 640, 420 620, 440 700 C 460 780, 640 790, 600 880 C 590 910, 570 930, 560 950" fill="none" stroke="url(#rg)" stroke-width="20" stroke-linecap="round" filter="url(#rgl)"/>
+        </svg>
+        <div class="r-node" style="left:6cqw;top:5cqw;width:44cqw">
+          <p class="label">Manifiesto</p>
+          <h3 style="margin-top:1cqw">No nos gusta que nos regalen nada. Cada proyecto nos lo <span class="liq">ganamos con trabajo</span>.</h3>
+        </div>
+        <div class="r-node" style="right:6cqw;top:24cqw;width:30cqw;text-align:right">
+          <div class="liq" style="font-family:'Space Grotesk';font-weight:700;font-size:9cqw;line-height:.85">10+</div>
+          <p>años de experiencia de cada persona del equipo. Trayectoria en startups unicornio y consultoras globales.</p>
+        </div>
+        <div class="r-node" style="left:6cqw;top:40cqw;width:28cqw">
+          <p class="label">Servicios · 01</p>
+          <h3 style="margin-top:.8cqw">Software a la medida</h3>
+          <p>Soluciones que se adaptan a tu negocio, con resultados medibles.</p>
+        </div>
+        <div class="r-node" style="right:6cqw;top:56cqw;width:28cqw">
+          <p class="label">Servicios · 02</p>
+          <h3 style="margin-top:.8cqw">Aplicaciones móviles</h3>
+          <p>Apps para iOS y Android que conectan con tus usuarios.</p>
+        </div>
+        <div class="r-node" style="left:6cqw;top:72cqw;width:28cqw">
+          <p class="label">Servicios · 03</p>
+          <h3 style="margin-top:.8cqw">Desarrollo web</h3>
+          <p>Sitios y aplicaciones web rápidas y visibles.</p>
+          <div style="margin-top:2cqw"><span class="lbtn">Ver todo lo que hacemos <span>→</span></span></div>
+        </div>
+      </div>
+      <div class="grain"></div>
+    </div>
+    <div class="card-body">
+      <h3>3 · Relato con pintura</h3>
+      <p>Un solo trazo de pintura brillante recorre la página de arriba abajo y se va dibujando conforme bajas. Va hilando el manifiesto, la experiencia y cada servicio, alternando a izquierda y derecha. Se siente como una historia continua, en movimiento.</p>
+    </div>
+  </div>
+
+</div>
+
+<style>
+  @keyframes d1 { 0% { transform: translate(0,0); } 50% { transform: translate(30px,-20px); } 100% { transform: translate(-20px,25px); } }
+  @keyframes d2 { 0% { transform: translate(0,0); } 50% { transform: translate(-35px,15px); } 100% { transform: translate(20px,-25px); } }
+  @keyframes d3 { 0% { transform: translate(0,0); } 50% { transform: translate(25px,30px); } 100% { transform: translate(-30px,10px); } }
+  @keyframes d4 { 0% { transform: translate(0,0); } 50% { transform: translate(35px,-10px); } 100% { transform: translate(10px,-30px); } }
+  @keyframes d5 { 0% { transform: translate(0,0); } 50% { transform: translate(-30px,25px); } 100% { transform: translate(-40px,-10px); } }
+  @keyframes d6 { 0% { transform: translate(0,0); } 50% { transform: translate(15px,-30px); } 100% { transform: translate(35px,10px); } }
+</style>

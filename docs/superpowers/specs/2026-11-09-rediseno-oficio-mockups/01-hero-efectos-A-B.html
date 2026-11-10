@@ -1,0 +1,236 @@
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  .cards.big { grid-template-columns: 1fr; gap: 2rem; max-width: 1100px; margin: 0 auto; }
+  .hx { position: relative; aspect-ratio: 16/9; overflow: hidden; background: #13151e; font-family: 'Open Sans', sans-serif; color: #d2d2af; container-type: inline-size; }
+  .hx svg.liquid { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hx .fields { position: absolute; inset: -15%; filter: blur(70px); opacity: .5; }
+  .hx .fields span { position: absolute; border-radius: 50%; animation: breathe 14s ease-in-out infinite alternate; }
+  .hx .grain { position: absolute; inset: 0; opacity: .12; mix-blend-mode: overlay; pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>"); }
+  .hx .nav { position: absolute; top: 3cqw; left: 4cqw; right: 4cqw; display: flex; justify-content: space-between; align-items: center; font-size: 1.1cqw; color: #c9c9b4; z-index: 5; }
+  .hx .nav b { font-family: 'Space Grotesk'; letter-spacing: .3em; font-size: 1.15cqw; font-weight: 500; }
+  .hx .nav .links { display: flex; gap: 2.4cqw; align-items: center; }
+  .hx .nav .pill { border: 1px solid rgba(255,255,255,.22); padding: .55cqw 1.4cqw; border-radius: 99px; }
+  .hx h1 { font-family: 'Space Grotesk'; font-weight: 700; line-height: 1.0; margin: 0; color: #d2d2af; letter-spacing: -.02em; }
+  .hx .grad { background: linear-gradient(90deg, #f06fae, #e8b64c); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hx .label { font-family: 'Space Grotesk'; text-transform: uppercase; letter-spacing: .22em; color: #a7cf9e; font-size: .95cqw; }
+  .hx .btn { display: inline-block; font-family: 'Space Grotesk'; font-weight: 600; font-size: 1.15cqw; padding: 1cqw 2.2cqw; border-radius: 99px; background: linear-gradient(90deg, #f06fae, #e8b64c); color: #13151e; white-space: nowrap; }
+  .hx .scroll { font-family: 'Space Grotesk'; font-size: .9cqw; letter-spacing: .25em; color: #8b91a3; text-transform: uppercase; }
+  .hx .layer { position: absolute; z-index: 4; }
+  .tag { display: inline-block; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--text-secondary); margin-top: .4rem; }
+
+  @keyframes breathe { 0% { transform: scale(1) translate(0,0); } 100% { transform: scale(1.25) translate(4%, -3%); } }
+  @keyframes d1 { 0% { transform: translate(0,0); } 50% { transform: translate(130px,-70px); } 100% { transform: translate(-60px,90px); } }
+  @keyframes d2 { 0% { transform: translate(0,0); } 50% { transform: translate(-150px,40px); } 100% { transform: translate(60px,-90px); } }
+  @keyframes d3 { 0% { transform: translate(0,0); } 50% { transform: translate(90px,120px); } 100% { transform: translate(-110px,30px); } }
+  @keyframes d4 { 0% { transform: translate(0,0); } 50% { transform: translate(160px,-40px); } 100% { transform: translate(40px,-120px); } }
+  @keyframes d5 { 0% { transform: translate(0,0); } 50% { transform: translate(-120px,110px); } 100% { transform: translate(-200px,-30px); } }
+  @keyframes d6 { 0% { transform: translate(0,0); } 50% { transform: translate(70px,-130px); } 100% { transform: translate(150px,40px); } }
+
+  /* A: el logo emerge */
+  .logoA { position: absolute; left: 50%; top: 42%; width: 15cqw; transform: translate(-50%,-50%); z-index: 4; animation: emerge 10s ease-out infinite; filter: drop-shadow(0 0 2cqw rgba(19,21,30,.9)); }
+  @keyframes emerge {
+    0%, 12% { opacity: 0; transform: translate(-50%,-38%) scale(.85); filter: blur(14px) drop-shadow(0 0 2cqw rgba(19,21,30,.9)); }
+    30%, 90% { opacity: 1; transform: translate(-50%,-50%) scale(1); filter: blur(0) drop-shadow(0 0 2cqw rgba(19,21,30,.9)); }
+    100% { opacity: 0; transform: translate(-50%,-50%) scale(1); filter: blur(6px) drop-shadow(0 0 2cqw rgba(19,21,30,.9)); }
+  }
+
+  /* C: la pintura forma el logo */
+  .formC { transform-box: fill-box; transform-origin: center; animation: formC 12s cubic-bezier(.6,0,.3,1) infinite; }
+  @keyframes formC {
+    0%, 8% { transform: translate(var(--dx), var(--dy)) scale(1); }
+    42%, 84% { transform: translate(0,0) scale(.5); }
+    100% { transform: translate(var(--dx), var(--dy)) scale(1); }
+  }
+  .logoC { animation: logoC 12s ease-in-out infinite; }
+  @keyframes logoC { 0%, 30% { opacity: 0; } 46%, 82% { opacity: 1; } 94%, 100% { opacity: 0; } }
+  .textC { animation: textC 12s ease-out infinite; }
+  @keyframes textC { 0%, 40% { opacity: 0; transform: translateY(1.5cqw); } 55%, 88% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+</style>
+
+<h2>¿Cuál de estas tres ideas para el inicio se acerca más a lo que imaginas?</h2>
+<p class="subtitle">Son bocetos rápidos, no el diseño final. Fíjate en cómo aparece el logo y en cómo se acomoda el texto. Los colores son los tuyos. Las animaciones se repiten para que las veas; en la página real pasarían una sola vez al entrar.</p>
+
+<div class="cards big">
+
+  <!-- ===================== A ===================== -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="hx">
+      <div class="fields">
+        <span style="left:5%;top:0;width:45%;height:60%;background:#f06fae"></span>
+        <span style="right:0;bottom:0;width:50%;height:55%;background:#3a3f8f;animation-delay:-5s"></span>
+        <span style="left:40%;bottom:-10%;width:35%;height:45%;background:#a7cf9e;opacity:.6;animation-delay:-9s"></span>
+      </div>
+      <svg class="liquid" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <filter id="gooA" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="20" result="b"/>
+            <feColorMatrix in="b" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 26 -11" result="g"/>
+            <feGaussianBlur in="g" stdDeviation="9" result="gb"/>
+            <feSpecularLighting in="gb" surfaceScale="6" specularConstant="1" specularExponent="24" lighting-color="#ffffff" result="s">
+              <fePointLight x="500" y="-250" z="550"/>
+            </feSpecularLighting>
+            <feComposite in="s" in2="g" operator="in" result="si"/>
+            <feComposite in="g" in2="si" operator="arithmetic" k1="0" k2="1" k3="0.6" k4="0"/>
+          </filter>
+        </defs>
+        <g filter="url(#gooA)">
+          <circle cx="690" cy="370" r="135" fill="#f06fae" style="animation:d1 9s ease-in-out infinite alternate"/>
+          <circle cx="910" cy="420" r="125" fill="#e8b64c" style="animation:d2 11s ease-in-out infinite alternate"/>
+          <circle cx="820" cy="290" r="100" fill="#a7cf9e" style="animation:d3 13s ease-in-out infinite alternate"/>
+          <circle cx="620" cy="480" r="85" fill="#3a3f8f" style="animation:d4 10s ease-in-out infinite alternate"/>
+          <circle cx="1010" cy="320" r="80" fill="#b5553f" style="animation:d5 12s ease-in-out infinite alternate"/>
+          <circle cx="790" cy="520" r="75" fill="#f06fae" style="animation:d6 8s ease-in-out infinite alternate"/>
+          <circle cx="480" cy="250" r="28" fill="#e8b64c" style="animation:d2 7s ease-in-out infinite alternate"/>
+          <circle cx="1150" cy="560" r="24" fill="#a7cf9e" style="animation:d1 9s ease-in-out infinite alternate"/>
+          <circle cx="1080" cy="200" r="18" fill="#f06fae" style="animation:d4 6s ease-in-out infinite alternate"/>
+        </g>
+      </svg>
+      <svg class="logoA" viewBox="0 0 104 98">
+        <defs>
+          <linearGradient id="shineA" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#EAEADC"/><stop offset=".45" stop-color="#EAEADC"/>
+            <stop offset=".5" stop-color="#ffffff"/><stop offset=".55" stop-color="#EAEADC"/><stop offset="1" stop-color="#EAEADC"/>
+            <animate attributeName="x1" values="-1;1" dur="3.5s" repeatCount="indefinite"/>
+            <animate attributeName="x2" values="0;2" dur="3.5s" repeatCount="indefinite"/>
+          </linearGradient>
+        </defs>
+        <g fill="url(#shineA)">
+          <path d="M71.2293 22.7814L71.2294 34.9895L63.922 36.8668L63.9219 16.4813C63.9219 13.4122 67.3198 11.5611 69.8984 13.2253L98.4562 31.6563C101.248 33.4582 100.626 37.7081 97.4346 38.6339L15.8367 62.3062L35.1355 75.6484L35.1355 60.2351L42.4429 58.0579L42.4429 82.1939C42.4429 85.3186 38.9344 87.1584 36.3641 85.3814L5.74023 64.2097C3.05455 62.353 3.72817 58.2103 6.86423 57.3005L88.1681 33.7135L71.2293 22.7814Z"/>
+          <path d="M34.5437 45.5754L34.5437 21.0186L42.3815 17.7076L42.3815 43.368L34.5437 45.5754Z"/>
+          <path d="M72.2818 49.0586L72.2818 73.6154L64.444 76.9264L64.444 51.266L72.2818 49.0586Z"/>
+        </g>
+      </svg>
+      <div class="nav"><b>HYPERNETICS</b><div class="links"><span>Nosotros</span><span>Servicios</span><span>Proceso</span><span class="pill">Comenzar proyecto</span></div></div>
+      <div class="layer" style="left:4cqw;right:4cqw;bottom:4cqw;display:flex;align-items:flex-end;justify-content:space-between;gap:3cqw">
+        <div>
+          <p class="label">Desarrollo de software a la medida</p>
+          <h1 style="font-size:4.6cqw;margin-top:1cqw">Transformamos tus <span class="grad">ideas</span><br>en soluciones digitales</h1>
+        </div>
+        <span class="btn">Descubre lo que hacemos</span>
+      </div>
+      <div class="grain"></div>
+    </div>
+    <div class="card-body">
+      <h3>A · El logo emerge del líquido</h3>
+      <p>Los colores se vierten y se mezclan en el centro. Cuando se asientan, el logo sale a la superficie y un destello de luz lo recorre. El titular va abajo, a todo lo ancho, como la cédula de una obra en un museo.</p>
+    </div>
+  </div>
+
+  <!-- ===================== B ===================== -->
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="hx">
+      <div class="fields">
+        <span style="left:-5%;top:10%;width:40%;height:60%;background:#3a3f8f"></span>
+        <span style="right:-5%;top:-10%;width:40%;height:55%;background:#f06fae;opacity:.5;animation-delay:-6s"></span>
+      </div>
+      <svg class="liquid" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <filter id="gooB" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="26" result="b"/>
+            <feColorMatrix in="b" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9" result="g"/>
+            <feGaussianBlur in="g" stdDeviation="10" result="gb"/>
+            <feSpecularLighting in="gb" surfaceScale="7" specularConstant="1" specularExponent="20" lighting-color="#ffffff" result="s">
+              <fePointLight x="300" y="-300" z="600"/>
+            </feSpecularLighting>
+            <feComposite in="s" in2="g" operator="in" result="si"/>
+            <feComposite in="g" in2="si" operator="arithmetic" k1="0" k2="1" k3="0.55" k4="0"/>
+          </filter>
+          <mask id="mB">
+            <g transform="translate(436 100) scale(7)" fill="#fff">
+              <path d="M71.2293 22.7814L71.2294 34.9895L63.922 36.8668L63.9219 16.4813C63.9219 13.4122 67.3198 11.5611 69.8984 13.2253L98.4562 31.6563C101.248 33.4582 100.626 37.7081 97.4346 38.6339L15.8367 62.3062L35.1355 75.6484L35.1355 60.2351L42.4429 58.0579L42.4429 82.1939C42.4429 85.3186 38.9344 87.1584 36.3641 85.3814L5.74023 64.2097C3.05455 62.353 3.72817 58.2103 6.86423 57.3005L88.1681 33.7135L71.2293 22.7814Z"/>
+              <path d="M34.5437 45.5754L34.5437 21.0186L42.3815 17.7076L42.3815 43.368L34.5437 45.5754Z"/>
+              <path d="M72.2818 49.0586L72.2818 73.6154L64.444 76.9264L64.444 51.266L72.2818 49.0586Z"/>
+            </g>
+          </mask>
+        </defs>
+        <g mask="url(#mB)">
+          <rect width="1600" height="900" fill="#262a3d"/>
+          <g filter="url(#gooB)">
+            <circle cx="560" cy="560" r="170" fill="#f06fae" style="animation:d1 9s ease-in-out infinite alternate"/>
+            <circle cx="1000" cy="300" r="170" fill="#e8b64c" style="animation:d2 11s ease-in-out infinite alternate"/>
+            <circle cx="780" cy="470" r="150" fill="#a7cf9e" style="animation:d3 10s ease-in-out infinite alternate"/>
+            <circle cx="700" cy="250" r="120" fill="#3a3f8f" style="animation:d4 12s ease-in-out infinite alternate"/>
+            <circle cx="1020" cy="620" r="130" fill="#b5553f" style="animation:d5 13s ease-in-out infinite alternate"/>
+            <circle cx="420" cy="420" r="110" fill="#e8b64c" style="animation:d6 8s ease-in-out infinite alternate"/>
+            <circle cx="900" cy="700" r="100" fill="#f06fae" style="animation:d1 12s ease-in-out infinite alternate-reverse"/>
+          </g>
+        </g>
+        <g transform="translate(436 100) scale(7)" fill="none" stroke="#EAEADC" stroke-opacity=".3" stroke-width=".22">
+          <path d="M71.2293 22.7814L71.2294 34.9895L63.922 36.8668L63.9219 16.4813C63.9219 13.4122 67.3198 11.5611 69.8984 13.2253L98.4562 31.6563C101.248 33.4582 100.626 37.7081 97.4346 38.6339L15.8367 62.3062L35.1355 75.6484L35.1355 60.2351L42.4429 58.0579L42.4429 82.1939C42.4429 85.3186 38.9344 87.1584 36.3641 85.3814L5.74023 64.2097C3.05455 62.353 3.72817 58.2103 6.86423 57.3005L88.1681 33.7135L71.2293 22.7814Z"/>
+          <path d="M34.5437 45.5754L34.5437 21.0186L42.3815 17.7076L42.3815 43.368L34.5437 45.5754Z"/>
+          <path d="M72.2818 49.0586L72.2818 73.6154L64.444 76.9264L64.444 51.266L72.2818 49.0586Z"/>
+        </g>
+      </svg>
+      <div class="nav"><b>HYPERNETICS</b><div class="links"><span>Nosotros</span><span>Servicios</span><span>Proceso</span><span class="pill">Comenzar proyecto</span></div></div>
+      <div class="layer" style="left:4cqw;top:10cqw">
+        <p class="label">Desarrollo de software a la medida</p>
+        <h1 style="font-size:4.4cqw;margin-top:1cqw">Transformamos<br>tus <span class="grad">ideas</span></h1>
+      </div>
+      <div class="layer" style="right:4cqw;bottom:4cqw;text-align:right">
+        <h1 style="font-size:4.4cqw">en soluciones<br>digitales</h1>
+        <div style="margin-top:2cqw"><span class="btn">Descubre lo que hacemos</span></div>
+      </div>
+      <div class="grain"></div>
+    </div>
+    <div class="card-body">
+      <h3>B · La pintura vive dentro del logo</h3>
+      <p>El logo ocupa toda la pantalla y funciona como una ventana: dentro, los colores se mezclan sin parar. El titular se parte en dos esquinas y enmarca el logo.</p>
+    </div>
+  </div>
+
+  <!-- ===================== C ===================== -->
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="hx">
+      <div class="fields">
+        <span style="left:0;top:-10%;width:40%;height:55%;background:#f06fae;opacity:.45"></span>
+        <span style="right:0;bottom:0;width:45%;height:55%;background:#a7cf9e;opacity:.35;animation-delay:-7s"></span>
+        <span style="left:30%;bottom:-20%;width:40%;height:50%;background:#3a3f8f;animation-delay:-3s"></span>
+      </div>
+      <svg class="liquid" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="paintC" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#a7cf9e"/><stop offset=".45" stop-color="#e8b64c"/><stop offset="1" stop-color="#f06fae"/>
+          </linearGradient>
+          <filter id="gooC" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="11" result="b"/>
+            <feColorMatrix in="b" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -8" result="g"/>
+            <feGaussianBlur in="g" stdDeviation="5" result="gb"/>
+            <feSpecularLighting in="gb" surfaceScale="5" specularConstant="1.05" specularExponent="26" lighting-color="#ffffff" result="s">
+              <fePointLight x="500" y="-200" z="450"/>
+            </feSpecularLighting>
+            <feComposite in="s" in2="g" operator="in" result="si"/>
+            <feComposite in="g" in2="si" operator="arithmetic" k1="0" k2="1" k3="0.6" k4="0"/>
+          </filter>
+        </defs>
+        <g filter="url(#gooC)">
+          <circle class="formC" cx="932" cy="290" r="44" fill="#a7cf9e" style="--dx:420px;--dy:-120px"/>
+          <circle class="formC" cx="792" cy="372" r="48" fill="#e8b64c" style="--dx:-520px;--dy:-180px;animation-delay:-.3s"/>
+          <circle class="formC" cx="672" cy="428" r="46" fill="#f06fae" style="--dx:-380px;--dy:260px;animation-delay:-.6s"/>
+          <circle class="formC" cx="744" cy="250" r="40" fill="#a7cf9e" style="--dx:-260px;--dy:-200px;animation-delay:-.2s"/>
+          <circle class="formC" cx="864" cy="430" r="44" fill="#e8b64c" style="--dx:520px;--dy:220px;animation-delay:-.5s"/>
+          <circle class="formC" cx="744" cy="480" r="40" fill="#f06fae" style="--dx:180px;--dy:330px;animation-delay:-.1s"/>
+          <circle class="formC" cx="864" cy="210" r="36" fill="#b5553f" style="--dx:300px;--dy:-260px;animation-delay:-.4s"/>
+          <circle class="formC" cx="620" cy="300" r="26" fill="#3a3f8f" style="--dx:-600px;--dy:40px;animation-delay:-.7s"/>
+          <g class="logoC" transform="translate(592 130) scale(4)" fill="url(#paintC)">
+            <path d="M71.2293 22.7814L71.2294 34.9895L63.922 36.8668L63.9219 16.4813C63.9219 13.4122 67.3198 11.5611 69.8984 13.2253L98.4562 31.6563C101.248 33.4582 100.626 37.7081 97.4346 38.6339L15.8367 62.3062L35.1355 75.6484L35.1355 60.2351L42.4429 58.0579L42.4429 82.1939C42.4429 85.3186 38.9344 87.1584 36.3641 85.3814L5.74023 64.2097C3.05455 62.353 3.72817 58.2103 6.86423 57.3005L88.1681 33.7135L71.2293 22.7814Z"/>
+            <path d="M34.5437 45.5754L34.5437 21.0186L42.3815 17.7076L42.3815 43.368L34.5437 45.5754Z"/>
+            <path d="M72.2818 49.0586L72.2818 73.6154L64.444 76.9264L64.444 51.266L72.2818 49.0586Z"/>
+          </g>
+        </g>
+      </svg>
+      <div class="nav"><b>HYPERNETICS</b><div class="links"><span>Nosotros</span><span>Servicios</span><span>Proceso</span><span class="pill">Comenzar proyecto</span></div></div>
+      <div class="layer textC" style="left:0;right:0;bottom:4.5cqw;text-align:center">
+        <p class="label">Desarrollo de software a la medida</p>
+        <h1 style="font-size:3.6cqw;margin-top:1cqw">Transformamos tus <span class="grad">ideas</span> en soluciones digitales</h1>
+        <div style="margin-top:2cqw"><span class="btn">Descubre lo que hacemos</span></div>
+      </div>
+      <div class="grain"></div>
+    </div>
+    <div class="card-body">
+      <h3>C · La pintura forma el logo</h3>
+      <p>Gotas de color flotan por la pantalla, se atraen, se funden y terminan formando el logo, con brillo de pintura fresca. Después aparece el titular, centrado debajo, y el logo se queda respirando suavemente.</p>
+    </div>
+  </div>
+
+</div>

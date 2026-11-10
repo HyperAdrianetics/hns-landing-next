@@ -1,0 +1,304 @@
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  .map { position: relative; max-width: 1080px; margin: 1.5rem auto 0; }
+  .map .row { display: grid; grid-template-columns: 600px 1fr; gap: 32px; }
+  .mini { position: relative; overflow: hidden; background: #13151e; font-family: 'Open Sans', sans-serif; color: #b9bdc9; }
+  .mini * { box-sizing: border-box; }
+  .mini :where(p, h1, h2, h3, h4) { margin: 0; }
+  .mini .ab { position: absolute; z-index: 3; }
+  .mini .lbl { font-family: 'Space Grotesk'; text-transform: uppercase; letter-spacing: .2em; color: #a7cf9e; font-size: 7px; }
+  .mini .ttl { font-family: 'Space Grotesk'; color: #d2d2af; font-weight: 700; letter-spacing: -.02em; }
+  .mini .grad { background: linear-gradient(90deg, #f06fae, #e8b64c); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .mini .btn { display: inline-block; font-family: 'Space Grotesk'; font-weight: 600; font-size: 8px; padding: 6px 12px; border-radius: 99px; background: linear-gradient(90deg, #f06fae, #e8b64c); color: #13151e; white-space: nowrap; }
+  .mini .fields { position: absolute; inset: -15%; filter: blur(40px); opacity: .5; }
+  .mini .fields span { position: absolute; border-radius: 50%; }
+  .mini .sep { border-top: 1px solid rgba(255,255,255,.08); }
+  .note { padding-top: 10px; color: var(--text-primary); }
+  .note h3 { font-size: 1rem; margin-bottom: .35rem; }
+  .note p { font-size: .88rem; line-height: 1.5; color: var(--text-secondary); margin-bottom: .4rem; }
+  .note .mine { font-size: .8rem; color: var(--text-tertiary); font-style: italic; }
+
+  /* botón que se llena de pintura */
+  .lbtn { position: relative; display: inline-flex; gap: 6px; overflow: hidden; isolation: isolate; font-family: 'Space Grotesk'; font-weight: 600; font-size: 8px; padding: 7px 14px; border-radius: 99px; border: 1px solid rgba(210,210,175,.4); color: #d2d2af; cursor: pointer; transition: color .4s; }
+  .lbtn::before { content: ""; position: absolute; z-index: -1; left: 50%; top: 120%; width: 140%; aspect-ratio: 1; border-radius: 42% 58% 55% 45%; background: linear-gradient(120deg, #f06fae, #e8b64c 55%, #a7cf9e); transform: translate(-50%,0); transition: top .6s cubic-bezier(.3,0,.2,1), transform 1.2s; }
+  .lbtn:hover { color: #13151e; border-color: transparent; }
+  .lbtn:hover::before { top: -60%; transform: translate(-50%,0) rotate(120deg); }
+
+  /* manifiesto que se ilumina */
+  .reveal { background: linear-gradient(90deg, #d2d2af 0 50%, #3a3f52 50% 100%); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: reveal 6s ease-in-out infinite; }
+  @keyframes reveal { 0% { background-position: 100% 0; } 70%, 100% { background-position: 0% 0; } }
+  .pill { display: inline-block; font-family: 'Space Grotesk'; font-weight: 700; color: #13151e; padding: 1px 8px; margin: 0 2px; border-radius: 46% 54% 50% 50% / 60% 55% 45% 40%; background: linear-gradient(120deg, #f06fae, #e8b64c); animation: wob 5s ease-in-out infinite alternate; }
+  @keyframes wob { 0% { border-radius: 46% 54% 50% 50% / 60% 55% 45% 40%; } 100% { border-radius: 58% 42% 46% 54% / 45% 60% 40% 55%; } }
+
+  /* filas de servicios */
+  .rows { position: absolute; left: 36px; right: 36px; z-index: 3; border-top: 1px solid rgba(255,255,255,.1); }
+  .r { position: relative; overflow: hidden; isolation: isolate; display: grid; grid-template-columns: 30px 1fr auto; align-items: center; padding: 9px 4px; border-bottom: 1px solid rgba(255,255,255,.1); cursor: pointer; }
+  .r .n { font-family: 'Space Grotesk'; font-size: 7px; color: #8b91a3; }
+  .r h4 { font-family: 'Space Grotesk'; font-size: 15px; font-weight: 500; color: #d2d2af; transition: color .4s, transform .5s; }
+  .r .a { font-family: 'Space Grotesk'; font-size: 12px; color: #a7cf9e; transition: transform .5s; }
+  .r .d { grid-column: 2/3; max-height: 0; opacity: 0; overflow: hidden; font-size: 7.5px; line-height: 1.5; transition: max-height .5s, opacity .5s, margin .5s; }
+  .r::before { content: ""; position: absolute; z-index: -1; left: -10%; top: 50%; width: 0; height: 260%; transform: translateY(-50%); border-radius: 50%; background: linear-gradient(100deg, rgba(240,111,174,.9), rgba(232,182,76,.85) 60%, rgba(167,207,158,.8)); filter: blur(6px); transition: width .7s cubic-bezier(.3,0,.2,1); }
+  .r:hover::before, .r.demo::before { width: 125%; }
+  .r:hover h4, .r.demo h4 { color: #13151e; transform: translateX(5px); }
+  .r:hover .n, .r.demo .n, .r:hover .d, .r.demo .d { color: #13151e; }
+  .r:hover .a, .r.demo .a { color: #13151e; transform: rotate(-45deg); }
+  .r:hover .d, .r.demo .d { max-height: 30px; opacity: 1; margin-top: 4px; }
+  .rows:hover .r.demo:not(:hover)::before { width: 0; }
+  .rows:hover .r.demo:not(:hover) h4 { color: #d2d2af; transform: none; }
+  .rows:hover .r.demo:not(:hover) .d { max-height: 0; opacity: 0; margin-top: 0; }
+  .rows:hover .r.demo:not(:hover) .n { color: #8b91a3; }
+  .rows:hover .r.demo:not(:hover) .a { color: #a7cf9e; transform: none; }
+
+  /* proceso: la línea superior se llena de pintura */
+  .steps { position: absolute; left: 36px; right: 36px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; z-index: 3; }
+  .step { position: relative; padding-top: 12px; }
+  .step::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: rgba(255,255,255,.1); }
+  .step::after { content: ""; position: absolute; left: 0; top: 0; height: 2px; width: 0; background: var(--c); box-shadow: 0 0 8px var(--c); animation: 8s linear infinite; }
+  .step:nth-child(1)::after { animation-name: f1; } .step:nth-child(2)::after { animation-name: f2; }
+  .step:nth-child(3)::after { animation-name: f3; } .step:nth-child(4)::after { animation-name: f4; }
+  /* Una barra a la vez: cada una arranca exactamente cuando termina la anterior */
+  @keyframes f1 { 0% { width: 0; opacity: 1; } 15% { width: 100%; } 92% { width: 100%; opacity: 1; } 100% { width: 100%; opacity: 0; } }
+  @keyframes f2 { 0%, 15% { width: 0; opacity: 1; } 30% { width: 100%; } 92% { width: 100%; opacity: 1; } 100% { width: 100%; opacity: 0; } }
+  @keyframes f3 { 0%, 30% { width: 0; opacity: 1; } 45% { width: 100%; } 92% { width: 100%; opacity: 1; } 100% { width: 100%; opacity: 0; } }
+  @keyframes f4 { 0%, 45% { width: 0; opacity: 1; } 60% { width: 100%; } 92% { width: 100%; opacity: 1; } 100% { width: 100%; opacity: 0; } }
+  /* Al completarse su barra, el número se pinta del mismo color */
+  .step .num { animation: 8s ease-out infinite; }
+  .step:nth-child(1) .num { animation-name: n1; } .step:nth-child(2) .num { animation-name: n2; }
+  .step:nth-child(3) .num { animation-name: n3; } .step:nth-child(4) .num { animation-name: n4; }
+  @keyframes n1 { 0%, 14% { color: transparent; -webkit-text-stroke-color: rgba(210,210,175,.5); } 18%, 92% { color: var(--c); -webkit-text-stroke-color: var(--c); } 100% { color: transparent; -webkit-text-stroke-color: rgba(210,210,175,.5); } }
+  @keyframes n2 { 0%, 29% { color: transparent; -webkit-text-stroke-color: rgba(210,210,175,.5); } 33%, 92% { color: var(--c); -webkit-text-stroke-color: var(--c); } 100% { color: transparent; -webkit-text-stroke-color: rgba(210,210,175,.5); } }
+  @keyframes n3 { 0%, 44% { color: transparent; -webkit-text-stroke-color: rgba(210,210,175,.5); } 48%, 92% { color: var(--c); -webkit-text-stroke-color: var(--c); } 100% { color: transparent; -webkit-text-stroke-color: rgba(210,210,175,.5); } }
+  @keyframes n4 { 0%, 59% { color: transparent; -webkit-text-stroke-color: rgba(210,210,175,.5); } 63%, 92% { color: var(--c); -webkit-text-stroke-color: var(--c); } 100% { color: transparent; -webkit-text-stroke-color: rgba(210,210,175,.5); } }
+  .step .num { font-family: 'Space Grotesk'; font-size: 26px; font-weight: 700; line-height: 1; color: transparent; -webkit-text-stroke: 1px rgba(210,210,175,.5); }
+  .step h4 { font-family: 'Space Grotesk'; font-size: 11px; color: #d2d2af; margin-top: 6px; }
+  .step p { font-size: 7.5px; margin-top: 3px; line-height: 1.5; }
+
+  /* tecnologías: muro tipográfico */
+  .wall { position: absolute; left: 36px; right: 36px; z-index: 3; font-family: 'Space Grotesk'; font-size: 19px; font-weight: 500; line-height: 1.45; color: #3a3f52; }
+  .wall span { cursor: default; transition: color .3s; white-space: nowrap; }
+  .wall span.t:hover, .wall span.lit { background: linear-gradient(90deg, #f06fae, #e8b64c); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .wall .sl { color: #262a3a; margin: 0 4px; }
+
+  /* contacto */
+  .uinp { border-bottom: 1px solid rgba(255,255,255,.15); font-size: 8px; color: #6b7185; padding: 8px 0 5px; }
+
+  @keyframes d1 { 0% { transform: translate(0,0); } 50% { transform: translate(130px,-70px); } 100% { transform: translate(-60px,90px); } }
+  @keyframes d2 { 0% { transform: translate(0,0); } 50% { transform: translate(-150px,40px); } 100% { transform: translate(60px,-90px); } }
+  @keyframes d3 { 0% { transform: translate(0,0); } 50% { transform: translate(90px,120px); } 100% { transform: translate(-110px,30px); } }
+  @keyframes d4 { 0% { transform: translate(0,0); } 50% { transform: translate(160px,-40px); } 100% { transform: translate(40px,-120px); } }
+  @keyframes d5 { 0% { transform: translate(0,0); } 50% { transform: translate(-120px,110px); } 100% { transform: translate(-200px,-30px); } }
+  @keyframes d6 { 0% { transform: translate(0,0); } 50% { transform: translate(70px,-130px); } 100% { transform: translate(150px,40px); } }
+</style>
+
+<h2>Hero y pausa intercambiados · Proceso corregido</h2>
+<p class="subtitle">Ahora la página abre con el logo gigante lleno de pintura (B), y el logo que emerge del líquido (A) queda como la pausa a media página.</p>
+<style>
+  .hx { position: relative; aspect-ratio: 16/9; overflow: hidden; background: #13151e; font-family: 'Open Sans', sans-serif; color: #d2d2af; container-type: inline-size; }
+  .hx svg.liquid { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hx .fields { position: absolute; inset: -15%; filter: blur(70px); opacity: .5; }
+  .hx .fields span { position: absolute; border-radius: 50%; animation: breathe 14s ease-in-out infinite alternate; }
+  .hx .grain { position: absolute; inset: 0; opacity: .12; mix-blend-mode: overlay; pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>"); }
+  .hx .nav { position: absolute; top: 3cqw; left: 4cqw; right: 4cqw; display: flex; justify-content: space-between; align-items: center; font-size: 1.1cqw; color: #c9c9b4; z-index: 5; }
+  .hx .nav b { font-family: 'Space Grotesk'; letter-spacing: .3em; font-size: 1.15cqw; font-weight: 500; }
+  .hx .nav .links { display: flex; gap: 2.4cqw; align-items: center; }
+  .hx .nav .pill { border: 1px solid rgba(255,255,255,.22); padding: .55cqw 1.4cqw; border-radius: 99px; }
+  .hx h1 { font-family: 'Space Grotesk'; font-weight: 700; line-height: 1.0; margin: 0; color: #d2d2af; letter-spacing: -.02em; }
+  .hx .grad { background: linear-gradient(90deg, #f06fae, #e8b64c); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hx .label { font-family: 'Space Grotesk'; text-transform: uppercase; letter-spacing: .22em; color: #a7cf9e; font-size: .95cqw; }
+  .hx .btn { display: inline-block; font-family: 'Space Grotesk'; font-weight: 600; font-size: 1.15cqw; padding: 1cqw 2.2cqw; border-radius: 99px; background: linear-gradient(90deg, #f06fae, #e8b64c); color: #13151e; white-space: nowrap; }
+  .hx .scroll { font-family: 'Space Grotesk'; font-size: .9cqw; letter-spacing: .25em; color: #8b91a3; text-transform: uppercase; }
+  .hx .layer { position: absolute; z-index: 4; }
+</style>
+<div style="max-width:1080px;margin:1.5rem auto 0;border-radius:12px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.25)">
+<div class="hx">
+      <div class="fields">
+        <span style="left:-5%;top:10%;width:40%;height:60%;background:#3a3f8f"></span>
+        <span style="right:-5%;top:-10%;width:40%;height:55%;background:#f06fae;opacity:.5;animation-delay:-6s"></span>
+      </div>
+      <svg class="liquid" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <filter id="bigB" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="26" result="b"/>
+            <feColorMatrix in="b" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9" result="g"/>
+            <feGaussianBlur in="g" stdDeviation="10" result="gb"/>
+            <feSpecularLighting in="gb" surfaceScale="7" specularConstant="1" specularExponent="20" lighting-color="#ffffff" result="s">
+              <fePointLight x="300" y="-300" z="600"/>
+            </feSpecularLighting>
+            <feComposite in="s" in2="g" operator="in" result="si"/>
+            <feComposite in="g" in2="si" operator="arithmetic" k1="0" k2="1" k3="0.55" k4="0"/>
+          </filter>
+          <mask id="bigMB">
+            <g transform="translate(436 100) scale(7)" fill="#fff">
+              <path d="M71.2293 22.7814L71.2294 34.9895L63.922 36.8668L63.9219 16.4813C63.9219 13.4122 67.3198 11.5611 69.8984 13.2253L98.4562 31.6563C101.248 33.4582 100.626 37.7081 97.4346 38.6339L15.8367 62.3062L35.1355 75.6484L35.1355 60.2351L42.4429 58.0579L42.4429 82.1939C42.4429 85.3186 38.9344 87.1584 36.3641 85.3814L5.74023 64.2097C3.05455 62.353 3.72817 58.2103 6.86423 57.3005L88.1681 33.7135L71.2293 22.7814Z"/>
+              <path d="M34.5437 45.5754L34.5437 21.0186L42.3815 17.7076L42.3815 43.368L34.5437 45.5754Z"/>
+              <path d="M72.2818 49.0586L72.2818 73.6154L64.444 76.9264L64.444 51.266L72.2818 49.0586Z"/>
+            </g>
+          </mask>
+        </defs>
+        <g mask="url(#bigMB)">
+          <rect width="1600" height="900" fill="#262a3d"/>
+          <g filter="url(#bigB)">
+            <circle cx="560" cy="560" r="170" fill="#f06fae" style="animation:d1 9s ease-in-out infinite alternate"/>
+            <circle cx="1000" cy="300" r="170" fill="#e8b64c" style="animation:d2 11s ease-in-out infinite alternate"/>
+            <circle cx="780" cy="470" r="150" fill="#a7cf9e" style="animation:d3 10s ease-in-out infinite alternate"/>
+            <circle cx="700" cy="250" r="120" fill="#3a3f8f" style="animation:d4 12s ease-in-out infinite alternate"/>
+            <circle cx="1020" cy="620" r="130" fill="#b5553f" style="animation:d5 13s ease-in-out infinite alternate"/>
+            <circle cx="420" cy="420" r="110" fill="#e8b64c" style="animation:d6 8s ease-in-out infinite alternate"/>
+            <circle cx="900" cy="700" r="100" fill="#f06fae" style="animation:d1 12s ease-in-out infinite alternate-reverse"/>
+          </g>
+        </g>
+        <g transform="translate(436 100) scale(7)" fill="none" stroke="#EAEADC" stroke-opacity=".3" stroke-width=".22">
+          <path d="M71.2293 22.7814L71.2294 34.9895L63.922 36.8668L63.9219 16.4813C63.9219 13.4122 67.3198 11.5611 69.8984 13.2253L98.4562 31.6563C101.248 33.4582 100.626 37.7081 97.4346 38.6339L15.8367 62.3062L35.1355 75.6484L35.1355 60.2351L42.4429 58.0579L42.4429 82.1939C42.4429 85.3186 38.9344 87.1584 36.3641 85.3814L5.74023 64.2097C3.05455 62.353 3.72817 58.2103 6.86423 57.3005L88.1681 33.7135L71.2293 22.7814Z"/>
+          <path d="M34.5437 45.5754L34.5437 21.0186L42.3815 17.7076L42.3815 43.368L34.5437 45.5754Z"/>
+          <path d="M72.2818 49.0586L72.2818 73.6154L64.444 76.9264L64.444 51.266L72.2818 49.0586Z"/>
+        </g>
+      </svg>
+      <div class="nav"><b>HYPERNETICS</b><div class="links"><span>Nosotros</span><span>Servicios</span><span>Proceso</span><span class="pill">Comenzar proyecto</span></div></div>
+      <div class="layer" style="left:4cqw;top:10cqw">
+        <p class="label">Desarrollo de software a la medida</p>
+        <h1 style="font-size:4.4cqw;margin-top:1cqw">Transformamos<br>tus <span class="grad">ideas</span></h1>
+      </div>
+      <div class="layer" style="right:4cqw;bottom:4cqw;text-align:right">
+        <h1 style="font-size:4.4cqw">en soluciones<br>digitales</h1>
+        <div style="margin-top:2cqw"><span class="btn">Descubre lo que hacemos</span></div>
+      </div>
+      <div class="grain"></div>
+    </div>
+</div>
+<p class="subtitle" style="max-width:1080px;margin:.6rem auto 2.5rem">Así se vería el nuevo hero a tamaño completo. Abajo está el mapa de toda la página con el cambio.</p>
+
+
+<div class="map">
+
+  <!-- HERO (ahora B) -->
+  <div class="row">
+    <div class="mini" style="height:336px">
+      <div class="fields"><span style="left:-5%;top:10%;width:40%;height:60%;background:#3a3f8f"></span><span style="right:-5%;top:-10%;width:40%;height:55%;background:#f06fae;opacity:.5"></span></div>
+      <svg style="position:absolute;inset:0;width:100%;height:100%" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <filter id="p2B" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceGraphic" stdDeviation="26" result="b"/><feColorMatrix in="b" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9" result="g"/><feGaussianBlur in="g" stdDeviation="10" result="gb"/><feSpecularLighting in="gb" surfaceScale="7" specularConstant="1" specularExponent="20" lighting-color="#ffffff" result="s"><fePointLight x="300" y="-300" z="600"/></feSpecularLighting><feComposite in="s" in2="g" operator="in" result="si"/><feComposite in="g" in2="si" operator="arithmetic" k1="0" k2="1" k3="0.55" k4="0"/></filter>
+          <mask id="p2MB"><g transform="translate(436 100) scale(7)" fill="#fff"><path d="M71.2293 22.7814L71.2294 34.9895L63.922 36.8668L63.9219 16.4813C63.9219 13.4122 67.3198 11.5611 69.8984 13.2253L98.4562 31.6563C101.248 33.4582 100.626 37.7081 97.4346 38.6339L15.8367 62.3062L35.1355 75.6484L35.1355 60.2351L42.4429 58.0579L42.4429 82.1939C42.4429 85.3186 38.9344 87.1584 36.3641 85.3814L5.74023 64.2097C3.05455 62.353 3.72817 58.2103 6.86423 57.3005L88.1681 33.7135L71.2293 22.7814Z"/><path d="M34.5437 45.5754L34.5437 21.0186L42.3815 17.7076L42.3815 43.368L34.5437 45.5754Z"/><path d="M72.2818 49.0586L72.2818 73.6154L64.444 76.9264L64.444 51.266L72.2818 49.0586Z"/></g></mask>
+        </defs>
+        <g mask="url(#p2MB)"><rect width="1600" height="900" fill="#262a3d"/><g filter="url(#p2B)">
+          <circle cx="560" cy="560" r="170" fill="#f06fae" style="animation:d1 9s ease-in-out infinite alternate"/>
+          <circle cx="1000" cy="300" r="170" fill="#e8b64c" style="animation:d2 11s ease-in-out infinite alternate"/>
+          <circle cx="780" cy="470" r="150" fill="#a7cf9e" style="animation:d3 10s ease-in-out infinite alternate"/>
+          <circle cx="700" cy="250" r="120" fill="#3a3f8f" style="animation:d4 12s ease-in-out infinite alternate"/>
+          <circle cx="1020" cy="620" r="130" fill="#b5553f" style="animation:d5 13s ease-in-out infinite alternate"/>
+        </g></g>
+      </svg>
+      <div class="ab" style="left:24px;top:24px"><p class="lbl">Desarrollo de software a la medida</p><p class="ttl" style="font-size:24px;line-height:1.02;margin-top:5px">Transformamos<br>tus <span class="grad">ideas</span></p></div>
+      <div class="ab" style="right:24px;bottom:22px;text-align:right"><p class="ttl" style="font-size:24px;line-height:1.02">en soluciones<br>digitales</p><div style="margin-top:10px"><span class="btn">Descubre lo que hacemos</span></div></div>
+    </div>
+    <div class="note"><h3>1 · Hero (ahora la B)</h3><p>Es lo primero que se ve: el logo gigante como ventana, con los colores mezclándose dentro. El titular se parte en dos esquinas y enmarca el logo.</p><p class="mine">Al cargar la página, el contorno del logo se dibuja primero y después la pintura lo llena.</p></div>
+  </div>
+
+  <!-- MANIFIESTO -->
+  <div class="row">
+    <div class="mini" style="height:220px">
+      <div class="ab" style="left:60px;right:60px;top:30px;text-align:center">
+        <p class="lbl">Manifiesto</p>
+        <p class="ttl reveal" style="font-size:18px;line-height:1.18;font-weight:500;margin-top:10px">No nos gusta que nos regalen nada. Cada proyecto nos lo ganamos con trabajo bien hecho, y nuestra mejor recompensa es la satisfacción de quien confía en nosotros.</p>
+        <p style="font-size:9px;margin-top:18px">Cada persona del equipo trae <span class="pill">10+ años</span> de oficio, con trayectoria en startups unicornio y consultoras globales.</p>
+      </div>
+    </div>
+    <div class="note"><h3>2 · Manifiesto y experiencia</h3><p>Tus palabras, centradas y en grande. Se van iluminando palabra por palabra conforme bajas. Debajo va "10+ años de experiencia de cada persona", sin decir cuántos son ni nombrar empresas.</p></div>
+  </div>
+
+  <!-- SERVICIOS -->
+  <div class="row">
+    <div class="mini sep" style="height:370px">
+      <div class="ab" style="left:36px;right:36px;top:22px;display:flex;justify-content:space-between;align-items:flex-end">
+        <div><p class="lbl">Servicios</p><p class="ttl" style="font-size:20px;margin-top:4px">Lo que hacemos</p></div>
+        <span class="lbtn">Platícanos tu proyecto →</span>
+      </div>
+      <div class="rows" style="top:78px">
+        <div class="r"><span class="n">01</span><h4>Software a la medida</h4><span class="a">→</span><p class="d">Soluciones que se adaptan a tu negocio, con resultados medibles.</p></div>
+        <div class="r demo"><span class="n">02</span><h4>Aplicaciones móviles</h4><span class="a">→</span><p class="d">Apps nativas e híbridas para iOS y Android. React Native, Flutter, UX/UI.</p></div>
+        <div class="r"><span class="n">03</span><h4>Desarrollo web</h4><span class="a">→</span><p class="d">Sitios y aplicaciones web responsivas, rápidas y visibles.</p></div>
+        <div class="r"><span class="n">04</span><h4>Arquitectura de datos</h4><span class="a">→</span><p class="d">Almacenamiento, procesamiento y análisis para decidir mejor.</p></div>
+        <div class="r"><span class="n">05</span><h4>Soluciones cloud</h4><span class="a">→</span><p class="d">Migramos y optimizamos tus servicios en la nube.</p></div>
+        <div class="r"><span class="n">06</span><h4>Consultoría técnica</h4><span class="a">→</span><p class="d">Arquitectura, herramientas, buenas prácticas y roadmap.</p></div>
+      </div>
+    </div>
+    <div class="note"><h3>3 · Servicios</h3><p>Una lista grande y limpia. Al pasar el mouse, la pintura inunda la fila y aparece el detalle.</p><p class="mine">En celular, como no hay mouse, cada fila se abre al tocarla.</p></div>
+  </div>
+
+  <!-- PROCESO -->
+  <div class="row">
+    <div class="mini sep" style="height:180px">
+      <div class="ab" style="left:36px;top:22px"><p class="lbl">Proceso</p><p class="ttl" style="font-size:20px;margin-top:4px">Cómo trabajamos</p></div>
+      <div class="steps" style="top:84px">
+        <div class="step" style="--c:#f06fae;--dl:0s"><p class="num">01</p><h4>Análisis</h4><p>Entendemos tus necesidades y objetivos.</p></div>
+        <div class="step" style="--c:#e8b64c;--dl:.6s"><p class="num">02</p><h4>Diseño</h4><p>Creamos la arquitectura y el prototipo.</p></div>
+        <div class="step" style="--c:#a7cf9e;--dl:1.2s"><p class="num">03</p><h4>Desarrollo</h4><p>Construimos la solución con calidad.</p></div>
+        <div class="step" style="--c:#d2d2af;--dl:1.8s"><p class="num">04</p><h4>Entrega</h4><p>Desplegamos y brindamos soporte.</p></div>
+      </div>
+    </div>
+    <div class="note"><h3>4 · Proceso</h3><p class="mine">Cuatro columnas con números grandes en contorno. Las barras se llenan una a la vez: la 02 arranca justo cuando termina la 01, y así sucesivamente. Cuando una barra se completa, su número se pinta del mismo color.</p></div>
+  </div>
+
+  <!-- PAUSA (ahora A) -->
+  <div class="row">
+    <div class="mini" style="height:336px">
+      <div class="fields"><span style="left:5%;top:0;width:45%;height:60%;background:#f06fae"></span><span style="right:0;bottom:0;width:50%;height:55%;background:#3a3f8f"></span></div>
+      <svg style="position:absolute;inset:0;width:100%;height:100%" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+        <defs><filter id="p2A" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceGraphic" stdDeviation="20" result="b"/><feColorMatrix in="b" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 26 -11" result="g"/><feGaussianBlur in="g" stdDeviation="9" result="gb"/><feSpecularLighting in="gb" surfaceScale="6" specularConstant="1" specularExponent="24" lighting-color="#ffffff" result="s"><fePointLight x="500" y="-250" z="550"/></feSpecularLighting><feComposite in="s" in2="g" operator="in" result="si"/><feComposite in="g" in2="si" operator="arithmetic" k1="0" k2="1" k3="0.6" k4="0"/></filter></defs>
+        <g filter="url(#p2A)">
+          <circle cx="690" cy="370" r="135" fill="#f06fae" style="animation:d1 9s ease-in-out infinite alternate"/>
+          <circle cx="910" cy="420" r="125" fill="#e8b64c" style="animation:d2 11s ease-in-out infinite alternate"/>
+          <circle cx="820" cy="290" r="100" fill="#a7cf9e" style="animation:d3 13s ease-in-out infinite alternate"/>
+          <circle cx="620" cy="480" r="85" fill="#3a3f8f" style="animation:d4 10s ease-in-out infinite alternate"/>
+          <circle cx="1010" cy="320" r="80" fill="#b5553f" style="animation:d5 12s ease-in-out infinite alternate"/>
+          <circle cx="790" cy="520" r="75" fill="#f06fae" style="animation:d6 8s ease-in-out infinite alternate"/>
+        </g>
+      </svg>
+      <svg class="ab" style="left:50%;top:40%;width:84px;transform:translate(-50%,-50%);filter:drop-shadow(0 0 10px rgba(19,21,30,.9))" viewBox="0 0 104 98" fill="#EAEADC"><path d="M71.2293 22.7814L71.2294 34.9895L63.922 36.8668L63.9219 16.4813C63.9219 13.4122 67.3198 11.5611 69.8984 13.2253L98.4562 31.6563C101.248 33.4582 100.626 37.7081 97.4346 38.6339L15.8367 62.3062L35.1355 75.6484L35.1355 60.2351L42.4429 58.0579L42.4429 82.1939C42.4429 85.3186 38.9344 87.1584 36.3641 85.3814L5.74023 64.2097C3.05455 62.353 3.72817 58.2103 6.86423 57.3005L88.1681 33.7135L71.2293 22.7814Z"/><path d="M34.5437 45.5754L34.5437 21.0186L42.3815 17.7076L42.3815 43.368L34.5437 45.5754Z"/><path d="M72.2818 49.0586L72.2818 73.6154L64.444 76.9264L64.444 51.266L72.2818 49.0586Z"/></svg>
+      <div class="ab" style="left:24px;right:24px;bottom:22px;display:flex;justify-content:space-between;align-items:flex-end">
+        <div><p class="lbl">Trabajemos juntos</p><p class="ttl" style="font-size:25px;line-height:1.02;margin-top:5px">Convierte tu <span class="grad">visión</span><br>en una experiencia digital</p></div>
+        <span class="btn">Contáctanos</span>
+      </div>
+    </div>
+    <div class="note"><h3>5 · Pausa (ahora la A)</h3><p>A media página, los colores se mezclan y el logo emerge del líquido con un destello. Pasa cuando la sección entra en pantalla.</p><p class="mine">Reemplaza el recuadro "Trabajemos juntos", con su texto abajo a todo lo ancho y el botón Contáctanos.</p></div>
+  </div>
+
+  <!-- TECNOLOGÍAS -->
+  <div class="row">
+    <div class="mini" style="height:190px">
+      <div class="ab" style="left:36px;top:22px"><p class="lbl">Stack</p><p class="ttl" style="font-size:20px;margin-top:4px">Tecnologías que dominamos</p></div>
+      <p class="wall" style="top:78px"><span class="t">TypeScript</span><span class="sl">/</span><span class="t lit">React</span><span class="sl">/</span><span class="t">Next.js</span><span class="sl">/</span><span class="t">Node.js</span><span class="sl">/</span><span class="t">React Native</span><span class="sl">/</span><span class="t">Python</span><span class="sl">/</span><span class="t">PostgreSQL</span><span class="sl">/</span><span class="t">MongoDB</span><span class="sl">/</span><span class="t">Docker</span><span class="sl">/</span><span class="t">AWS</span></p>
+    </div>
+    <div class="note"><h3>6 · Tecnologías</h3><p class="mine">Un muro de texto con los nombres en gris tenue. Al pasar el mouse (o al bajar, en celular) cada nombre se pinta de color. Reemplaza la cuadrícula de logos.</p></div>
+  </div>
+
+  <!-- CONTACTO -->
+  <div class="row">
+    <div class="mini sep" style="height:250px">
+      <div class="ab" style="left:36px;top:26px;width:250px">
+        <p class="lbl">Contacto</p>
+        <p class="ttl" style="font-size:26px;line-height:1.02;margin-top:6px">¿Tienes una idea?<br><span class="grad">Démosle vida.</span></p>
+        <p style="font-size:8px;line-height:1.7;margin-top:16px">contacto@hypernetics.com.mx<br>+52 55 4484 3991</p>
+      </div>
+      <div class="ab" style="left:320px;right:36px;top:30px">
+        <div class="uinp">Nombre</div><div class="uinp">Correo</div><div class="uinp">Empresa</div><div class="uinp" style="padding-bottom:30px">Cuéntanos tu proyecto</div>
+        <div style="margin-top:14px"><span class="lbtn">Enviar →</span></div>
+      </div>
+    </div>
+    <div class="note"><h3>7 · Contacto</h3><p>El titular en grande a la izquierda y el formulario a la derecha.</p><p class="mine">Los campos del formulario pasan de cajas a líneas, en el mismo estilo sobrio de la lista. El formulario funciona igual que hoy; los campos del boceto son de ejemplo, se conservan los actuales.</p></div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="row">
+    <div class="mini sep" style="height:120px">
+      <div class="ab" style="left:36px;right:36px;top:18px;display:flex;justify-content:space-between;font-size:8px"><span>Aviso de privacidad · Términos</span><span>LinkedIn · GitHub · X</span></div>
+      <div class="ab" style="left:36px;right:36px;bottom:10px;font-family:'Space Grotesk';font-weight:700;font-size:62px;letter-spacing:-.04em;line-height:1;color:#1f2232">HYPERNETICS</div>
+    </div>
+    <div class="note"><h3>8 · Footer</h3><p class="mine">Compacto, y como firma final el nombre HYPERNETICS en letra enorme y tenue.</p></div>
+  </div>
+</div>
+
+<div style="max-width:1080px;margin:2rem auto 0;padding:1rem 1.25rem;border:1px solid var(--border);border-radius:12px">
+  <h3 style="font-size:1rem;margin-bottom:.4rem">Transiciones y detalles en toda la página</h3>
+  <p style="font-size:.88rem;line-height:1.6;color:var(--text-secondary)"><em>Entre secciones:</em> separación con líneas finas, sin cortes bruscos. Los títulos suben línea por línea desde una máscara al aparecer en pantalla. <em>Botones:</em> se llenan de pintura al pasar el mouse. <em>Celular:</em> el hero y la pausa usan una versión más ligera del líquido, y las filas se abren al tocarlas. <em>"Reducir movimiento":</em> si la persona tiene activada esa opción en su dispositivo, todo aparece sin animación.</p>
+</div>
