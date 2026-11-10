@@ -45,10 +45,8 @@ const Footer = () => {
             ))}
           </ul>
         </div>
-        <p aria-hidden className="footer-signature">
-          HYPERNETICS
-        </p>
-        <small className="block pb-8 text-[#5d6274]">
+        <p aria-hidden className="footer-signature" data-text="HYPERNETICS" />
+        <small className="block pb-8 text-[#8b91a3]">
           Hypernetics © {new Date().getFullYear()} — Todos los derechos
           reservados
         </small>

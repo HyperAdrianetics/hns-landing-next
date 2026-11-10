@@ -21,7 +21,9 @@ const [br, bg, bb] = hexToRgb("#262a3d");
 
 // La marca H gigante, llena de pintura que se mezcla sin parar. Capas:
 // respaldo CSS (siempre), canvas WebGL encima (si hay WebGL) y el contorno.
-// La entrada (contorno que se dibuja, luego la pintura que lo llena) es CSS.
+// La entrada (contorno que se dibuja, luego la pintura que lo llena) es CSS:
+// una capa del color de fondo se retira de abajo hacia arriba. Así la pintura
+// existe desde el primer paint y la animación no retrasa el LCP.
 const HeroLogoLiquid = () => {
   return (
     <div aria-hidden className="hero-logo">
@@ -33,6 +35,7 @@ const HeroLogoLiquid = () => {
           base={[br, bg, bb, 1]}
           className="absolute inset-0 h-full w-full"
         />
+        <div className="hero-paint-cover" />
       </div>
       <svg className="hero-outline" viewBox="0 0 104 98" fill="none">
         {LOGO_PATHS.map((d) => (

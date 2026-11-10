@@ -155,6 +155,7 @@ const ContactForm = () => {
 
       <select
         name="perfil"
+        aria-label="Puesto de trabajo"
         value={formData.perfil}
         onChange={handleInputChange}
         required
@@ -174,6 +175,7 @@ const ContactForm = () => {
 
       <select
         name="projectType"
+        aria-label="Tipo de proyecto"
         value={formData.projectType}
         onChange={handleInputChange}
         required
@@ -192,6 +194,7 @@ const ContactForm = () => {
 
       <select
         name="budget"
+        aria-label="Presupuesto estimado (MXN)"
         value={formData.budget}
         onChange={handleInputChange}
         required

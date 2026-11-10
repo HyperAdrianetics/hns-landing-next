@@ -68,32 +68,6 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
-  .glass-card--hover:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 40px rgba(240, 111, 174, 0.15);
-  }
-
-  .hairline {
-    position: absolute;
-    top: 0;
-    left: 1.125rem;
-    right: 1.125rem;
-    height: 2px;
-    border-radius: 2px;
-  }
-
-  .hairline--brand {
-    background: var(--gradBrand);
-  }
-
-  .hairline--green {
-    background: linear-gradient(90deg, var(--primaryGreen), transparent);
-  }
-
-  .hairline--gold {
-    background: linear-gradient(90deg, var(--accentGold), transparent);
-  }
-
   .btn-primary {
     position: relative;
     isolation: isolate;
@@ -235,7 +209,6 @@ body {
       transition: none;
     }
 
-    .glass-card--hover:hover,
     .btn-primary:hover {
       transform: none;
     }
@@ -356,7 +329,13 @@ body {
     inset: 0;
     -webkit-mask: url(/hypernetics-h.svg) center / 100% 100% no-repeat;
     mask: url(/hypernetics-h.svg) center / 100% 100% no-repeat;
-    animation: hero-paint-fill 1s cubic-bezier(0.6, 0, 0.2, 1) 1.2s both;
+  }
+
+  .hero-paint-cover {
+    position: absolute;
+    inset: 0;
+    background: #262a3d;
+    animation: hero-paint-uncover 1s cubic-bezier(0.6, 0, 0.2, 1) 1.2s both;
   }
 
   /* Respaldo sin WebGL: la misma paleta en manchas estáticas. */
@@ -447,7 +426,10 @@ body {
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero-paint,
+    .hero-paint-cover {
+      display: none;
+    }
+
     .hero-line,
     .hero-cta {
       animation: none;
@@ -976,7 +958,12 @@ body {
     container-type: inline-size;
   }
 
-  /* La firma ocupa justo el ancho del contenedor (≈5.96em de ancho). */
+  /* La firma ocupa justo el ancho del contenedor (≈5.96em de ancho). Es
+     decorativa: el texto va en ::before para no contar como contenido. */
+  .footer-signature::before {
+    content: attr(data-text);
+  }
+
   .footer-signature {
     margin-top: 2.5rem;
     font-family: var(--font-display), sans-serif;
@@ -1044,12 +1031,12 @@ body {
   }
 }
 
-@keyframes hero-paint-fill {
+@keyframes hero-paint-uncover {
   from {
-    clip-path: inset(100% 0 0 0);
+    clip-path: inset(0 0 0 0);
   }
   to {
-    clip-path: inset(0 0 0 0);
+    clip-path: inset(0 0 100% 0);
   }
 }
 
