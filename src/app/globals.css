@@ -144,14 +144,14 @@ body {
     transition: top 0.6s cubic-bezier(0.3, 0, 0.2, 1), transform 1.2s ease;
   }
 
-  .btn-paint:hover,
-  .btn-paint:focus-visible {
+  .btn-paint:not(:disabled):hover,
+  .btn-paint:not(:disabled):focus-visible {
     color: var(--background);
     border-color: transparent;
   }
 
-  .btn-paint:hover::before,
-  .btn-paint:focus-visible::before {
+  .btn-paint:not(:disabled):hover::before,
+  .btn-paint:not(:disabled):focus-visible::before {
     top: -60%;
     transform: translateX(-50%) rotate(120deg);
   }
@@ -159,10 +159,6 @@ body {
   .btn-paint:disabled {
     opacity: 0.6;
     cursor: not-allowed;
-  }
-
-  .btn-paint:disabled::before {
-    top: 120%;
   }
 
   /* Títulos que suben línea por línea desde una máscara al entrar en pantalla.
@@ -362,8 +358,9 @@ body {
   .hero-outline path {
     stroke: #eaeadc;
     stroke-opacity: 0.3;
-    stroke-width: 1.5;
-    vector-effect: non-scaling-stroke;
+    /* En unidades del viewBox (104): ~1.5 px con el logo a ~700 px. Sin
+       vector-effect, para que pathLength=1 mida el mismo trazo que se pinta. */
+    stroke-width: 0.22;
     stroke-dasharray: 1;
     stroke-dashoffset: 1;
     animation: hero-outline-draw 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.15s forwards;
@@ -622,7 +619,12 @@ body {
     color: var(--background);
   }
 
-  .svc-row[data-open="true"]::before,
+  .svc-row[data-open="true"]::before {
+    width: 125%;
+  }
+
+  /* :has() va en reglas propias: un navegador sin soporte descarta solo
+     estas, no las de data-open. */
   .svc-row:has(.svc-btn:focus-visible)::before {
     width: 125%;
   }
@@ -633,12 +635,18 @@ body {
     transition: grid-template-rows 0.5s cubic-bezier(0.3, 0, 0.2, 1), visibility 0s;
   }
 
-  .svc-row[data-open="true"] :is(.svc-num, .svc-title, .svc-arrow),
+  .svc-row[data-open="true"] :is(.svc-num, .svc-title, .svc-arrow) {
+    color: var(--background);
+  }
+
   .svc-row:has(.svc-btn:focus-visible) :is(.svc-num, .svc-title, .svc-arrow) {
     color: var(--background);
   }
 
-  .svc-row[data-open="true"] .svc-title,
+  .svc-row[data-open="true"] .svc-title {
+    transform: translateX(0.5rem);
+  }
+
   .svc-row:has(.svc-btn:focus-visible) .svc-title {
     transform: translateX(0.5rem);
   }

@@ -42,6 +42,8 @@ const InView = ({ as: Tag = "div", id, className, style, children }: InViewProps
   const ref = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
+    // Avisa al script de layout.tsx que la app hidrató (mantiene `html.js`).
+    (window as Window & { __hnsReady?: boolean }).__hnsReady = true;
     const el = ref.current;
     if (!el) return;
     const obs = getObserver();

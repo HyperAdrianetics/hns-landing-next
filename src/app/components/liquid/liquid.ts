@@ -95,7 +95,9 @@ void main() {
     if (i >= uCount) break;
     vec2 d = p - uBlob[i].xy;
     float r2 = uBlob[i].z * uBlob[i].z;
-    float d2 = dot(d, d) + 1e-4;
+    // Piso de 1e-2 (0.1 unidades del centro): evita desbordar fp16 en GPUs
+    // sin highp (k^3 y d2^2); dentro de ese radio la gota ya es plana.
+    float d2 = max(dot(d, d), 1e-2);
     float k = r2 / d2;
     f += k;
     g -= 2.0 * r2 * d / (d2 * d2);

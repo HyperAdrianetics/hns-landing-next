@@ -27,6 +27,9 @@ type EngineOptions = Required<Omit<LiquidCanvasProps, "className" | "mobileBlobs
 };
 
 const INTRO_MS = 1600;
+const MIN_FRAME_MS = 15;
+// Contador de frames en `data-frames`, solo fuera de producción (para pruebas).
+const DEBUG_FRAMES = process.env.NODE_ENV !== "production";
 // Frame que se muestra fijo con "reducir movimiento".
 const STILL_T = 2.5;
 
@@ -124,7 +127,9 @@ function startLiquid(canvas: HTMLCanvasElement, opts: EngineOptions): (() => voi
     gl.uniform3fv(uBlob, blobFrame(list, t, spread, frameBuf));
     gl.drawArrays(gl.TRIANGLES, 0, 6);
     frames++;
-    if (frames === 1 || frames % 10 === 0) canvas.dataset.frames = String(frames);
+    if (DEBUG_FRAMES && (frames === 1 || frames % 10 === 0)) {
+      canvas.dataset.frames = String(frames);
+    }
   };
 
   const easeOut = (x: number) => 1 - Math.pow(1 - x, 3);
@@ -137,10 +142,12 @@ function startLiquid(canvas: HTMLCanvasElement, opts: EngineOptions): (() => voi
   let onScreen = false;
 
   const tick = (now: number) => {
+    raf = requestAnimationFrame(tick);
+    // Tope de ~60 fps: en pantallas de 120 Hz no tiene caso dibujar el doble.
+    if (last && now - last < MIN_FRAME_MS) return;
     if (last) elapsed += Math.min(now - last, 100);
     last = now;
     draw(elapsed / 1000, spreadAt(elapsed));
-    raf = requestAnimationFrame(tick);
   };
   const start = () => {
     if (raf || reduced) return;

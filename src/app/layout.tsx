@@ -56,8 +56,11 @@ export const metadata: Metadata = {
 };
 
 // Marca `html.js` antes del primer paint. Las animaciones de entrada solo
-// ocultan contenido bajo `.js`: sin JavaScript la página se ve completa.
-const jsFlagScript = "document.documentElement.classList.add('js')";
+// ocultan contenido bajo `.js`: sin JavaScript la página se ve completa. Si la
+// app no llega a hidratar (bundle bloqueado o con error), a los 6 s se quita
+// la marca para que ningún título se quede escondido.
+const jsFlagScript =
+  "document.documentElement.classList.add('js');setTimeout(function(){if(!window.__hnsReady)document.documentElement.classList.remove('js')},6000)";
 
 export default function RootLayout({
   children,
