@@ -55,10 +55,9 @@ export const metadata: Metadata = {
   },
 };
 
-// Token del origin trial de Chrome para HTML-in-Canvas. Es público (viaja en el
-// HTML), va atado a un origen concreto y caduca; si falta o vence, los efectos
-// de Canvas UI siguen funcionando en su modo WebGL sin romper nada.
-const originTrialToken = process.env.ORIGIN_TRIAL_TOKEN;
+// Marca `html.js` antes del primer paint. Las animaciones de entrada solo
+// ocultan contenido bajo `.js`: sin JavaScript la página se ve completa.
+const jsFlagScript = "document.documentElement.classList.add('js')";
 
 export default function RootLayout({
   children,
@@ -66,10 +65,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
-      {originTrialToken ? (
-        <meta httpEquiv="origin-trial" content={originTrialToken} />
-      ) : null}
+    <html lang="es" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: jsFlagScript }} />
+      </head>
       <body className={`${openSans.className} ${spaceGrotesk.variable} antialiased`}>
         {/* Google Analytics */}
         <Script

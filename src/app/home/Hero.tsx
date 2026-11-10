@@ -3,12 +3,11 @@ import Image from "next/image";
 import React from "react";
 import arrowRight from "../assets/icons/arrow-right.svg";
 import colorExplosion from "../../../public/color-explosion.png";
-import HeroLiquid from "../components/HeroLiquid";
 import { stats, statAccentClass } from "./stats";
 
 const Hero = () => {
   return (
-    <HeroLiquid>
+    <>
       {/* El fondo opaco parece redundante con el del body, pero no lo es: con
           HTML-in-Canvas activo, Liquid dibuja esta sección sobre el canvas que
           ya la muestra, y cada píxel semitransparente se compone dos veces. Sin
@@ -73,7 +72,7 @@ const Hero = () => {
           </div>
         </div>
       </section>
-    </HeroLiquid>
+    </>
   );
 };
 

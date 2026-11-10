@@ -6,21 +6,20 @@ import Process from "./home/Process";
 import Technologies from "./home/Technologies";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
-import SectionsParticles from "./components/SectionsParticles";
 
 export default function Home() {
   return (
     <>
       <Header />
-      <SectionsParticles>
+      <main>
         <Hero />
         <About />
         <Services />
         <Process />
         <Technologies />
         <Contact />
-        <Footer />
-      </SectionsParticles>
+      </main>
+      <Footer />
     </>
   );
 }

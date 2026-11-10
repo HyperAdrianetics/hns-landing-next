@@ -9,6 +9,9 @@
   --accentMagenta: #f06fae;
   --accentGold: #e8b64c;
   --gradBrand: linear-gradient(90deg, var(--accentMagenta), var(--accentGold));
+  --gradPaint: linear-gradient(110deg, var(--accentMagenta), var(--accentGold) 55%, var(--primaryGreen));
+  /* Gris de reposo de los efectos "de tenue a color": 3.4:1 sobre el fondo. */
+  --restGray: #646a80;
 }
 
 html {
@@ -92,6 +95,9 @@ body {
   }
 
   .btn-primary {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -105,20 +111,138 @@ body {
     transition: box-shadow 0.3s ease, transform 0.3s ease;
   }
 
-  .btn-primary:hover {
+  /* Brillo de pintura fresca que recorre el botón al pasar el mouse. */
+  .btn-primary::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+      110deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.5) 50%,
+      transparent 70%
+    );
+    transform: translateX(-120%);
+    transition: transform 0.8s cubic-bezier(0.3, 0, 0.2, 1);
+  }
+
+  .btn-primary:hover,
+  .btn-primary:focus-visible {
     box-shadow: 0 0 24px rgba(240, 111, 174, 0.35);
     transform: translateY(-1px);
   }
 
+  .btn-primary:hover::after,
+  .btn-primary:focus-visible::after {
+    transform: translateX(120%);
+  }
+
+  /* Botón con borde: una gota de pintura sube desde abajo y lo llena. */
+  .btn-paint {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 1px solid rgba(210, 210, 175, 0.4);
+    color: var(--primaryYellow);
+    font-family: var(--font-display), sans-serif;
+    font-weight: 600;
+    border-radius: 9999px;
+    padding: 0.75rem 1.6rem;
+    transition: color 0.4s ease, border-color 0.4s ease;
+  }
+
+  .btn-paint::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 50%;
+    top: 120%;
+    width: 140%;
+    aspect-ratio: 1;
+    border-radius: 42% 58% 55% 45%;
+    background: var(--gradPaint);
+    transform: translateX(-50%) rotate(0deg);
+    transition: top 0.6s cubic-bezier(0.3, 0, 0.2, 1), transform 1.2s ease;
+  }
+
+  .btn-paint:hover,
+  .btn-paint:focus-visible {
+    color: var(--background);
+    border-color: transparent;
+  }
+
+  .btn-paint:hover::before,
+  .btn-paint:focus-visible::before {
+    top: -60%;
+    transform: translateX(-50%) rotate(120deg);
+  }
+
+  .btn-paint:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .btn-paint:disabled::before {
+    top: 120%;
+  }
+
+  /* Títulos que suben línea por línea desde una máscara al entrar en pantalla.
+     Uso: <span class="mask-line" style="--line:0"><span>Texto</span></span>
+     dentro de un <InView>. Solo se ocultan bajo `.js`. */
+  .mask-line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.1em;
+    margin-bottom: -0.1em;
+  }
+
+  .mask-line > span {
+    display: inline-block;
+  }
+
+  .js .mask-line > span {
+    transform: translateY(110%);
+    transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.1, 1);
+    transition-delay: calc(var(--line, 0) * 0.12s);
+  }
+
+  .js [data-inview] .mask-line > span {
+    transform: none;
+  }
+
+  /* Grano muy sutil, como de lienzo, sobre toda la página. */
+  .grain {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.06;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .glass-card,
-    .btn-primary {
+    .btn-primary,
+    .btn-primary::after,
+    .btn-paint,
+    .btn-paint::before {
       transition: none;
     }
 
     .glass-card--hover:hover,
     .btn-primary:hover {
       transform: none;
+    }
+
+    .js .mask-line > span {
+      transform: none;
+      transition: none;
     }
   }
 
@@ -183,64 +307,6 @@ body {
     }
   }
 
-  .hero-glow {
-    position: absolute;
-    inset: 10%;
-    background: radial-gradient(
-      closest-side,
-      rgba(240, 111, 174, 0.16),
-      transparent 72%
-    );
-    filter: blur(40px);
-    animation: breathe 8s ease-in-out infinite;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .hero-glow {
-      animation: none;
-    }
-  }
-
-  /* El contenedor de la imagen es un container query de tamaño para que el
-     círculo pueda medirse contra la dimensión MENOR (cqmin): en tablets el
-     contenedor es ancho pero bajo, y dimensionar solo por ancho hacía que el
-     anillo desbordara verticalmente contra los stats y el fold. */
-  .hero-media {
-    container-type: size;
-  }
-
-  .hero-circle {
-    position: absolute;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    pointer-events: none;
-  }
-
-  .hero-circle::before,
-  .hero-circle::after {
-    content: "";
-    grid-area: 1 / 1;
-    border-radius: 50%;
-    aspect-ratio: 1;
-  }
-
-  .hero-circle::before {
-    width: min(30rem, 92%);
-    width: min(30rem, 100cqmin);
-    background: radial-gradient(
-      closest-side,
-      rgba(56, 62, 88, 0.5),
-      rgba(25, 28, 41, 0.25) 60%,
-      transparent 78%
-    );
-  }
-
-  .hero-circle::after {
-    width: min(35rem, 104%);
-    width: min(35rem, 112cqmin);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
 }
 
 @keyframes breathe {
