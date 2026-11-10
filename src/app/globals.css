@@ -327,11 +327,15 @@ body {
     mask: url(/hypernetics-h.svg) center / 100% 100% no-repeat;
   }
 
-  .hero-paint-cover {
-    position: absolute;
-    inset: 0;
-    background: #262a3d;
-    animation: hero-paint-uncover 1s cubic-bezier(0.6, 0, 0.2, 1) 1.2s both;
+  /* El canvas del líquido se funde sobre su respaldo CSS al pintar su primer
+     frame, para que el cambio no se note como un salto. */
+  .liquid-canvas {
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+
+  .liquid-canvas[data-ready] {
+    opacity: 1;
   }
 
   /* Respaldo sin WebGL: la misma paleta en manchas estáticas. */
@@ -358,12 +362,8 @@ body {
   .hero-outline path {
     stroke: #eaeadc;
     stroke-opacity: 0.3;
-    /* En unidades del viewBox (104): ~1.5 px con el logo a ~700 px. Sin
-       vector-effect, para que pathLength=1 mida el mismo trazo que se pinta. */
+    /* En unidades del viewBox (104): ~1.5 px con el logo a ~700 px. */
     stroke-width: 0.22;
-    stroke-dasharray: 1;
-    stroke-dashoffset: 1;
-    animation: hero-outline-draw 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.15s forwards;
   }
 
   .hero-inner {
@@ -423,18 +423,13 @@ body {
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero-paint-cover {
-      display: none;
+    .liquid-canvas {
+      transition: none;
     }
 
     .hero-line,
     .hero-cta {
       animation: none;
-    }
-
-    .hero-outline path {
-      animation: none;
-      stroke-dashoffset: 0;
     }
   }
 
@@ -1030,21 +1025,6 @@ body {
   50% {
     transform: scale(1.15);
     opacity: 1;
-  }
-}
-
-@keyframes hero-outline-draw {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-@keyframes hero-paint-uncover {
-  from {
-    clip-path: inset(0 0 0 0);
-  }
-  to {
-    clip-path: inset(0 0 100% 0);
   }
 }
 

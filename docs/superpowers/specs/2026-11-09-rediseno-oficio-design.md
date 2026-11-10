@@ -80,7 +80,7 @@ Lo primero que se ve, a pantalla completa (ver la vista grande en `03-mapa-pagin
   - Arriba a la izquierda: etiqueta "Desarrollo de software a la medida" y luego "Transformamos / tus **ideas**" ("ideas" con el degradado de marca magenta→dorado).
   - Abajo a la derecha: "en soluciones / digitales" y el CTA primario "Descubre lo que hacemos" → `#services`.
   - Semánticamente es **un solo `<h1>`**: "Transformamos tus ideas en soluciones digitales", repartido visualmente en dos bloques.
-- **Entrada (una vez, al cargar):** primero se dibuja el contorno del logo (~1.2 s), luego la pintura llena el interior (~1 s) y al final suben los dos bloques del titular. Después el líquido sigue moviéndose suave y continuo mientras el hero esté en pantalla.
+- **Sin animación de entrada en la H** (cambio pedido por el dueño el 2026-11-10, tras verla en producción): la H se ve llena de color desde el primer momento, con su contorno fijo. El líquido animado entra con un fundido suave sobre el respaldo de color en cuanto está listo. Solo los dos bloques del titular hacen una subida corta. El líquido sigue moviéndose suave y continuo mientras el hero esté en pantalla.
 - El párrafo actual del hero ("Desarrollamos software a la medida que impulsa tu negocio…") sale del hero; ver "Decisiones de Claude".
 
 ### 2 · Manifiesto y experiencia (`#about`)

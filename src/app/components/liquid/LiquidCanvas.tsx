@@ -127,6 +127,9 @@ function startLiquid(canvas: HTMLCanvasElement, opts: EngineOptions): (() => voi
     gl.uniform3fv(uBlob, blobFrame(list, t, spread, frameBuf));
     gl.drawArrays(gl.TRIANGLES, 0, 6);
     frames++;
+    // Marca el canvas como listo tras el primer frame: el CSS lo funde sobre
+    // el respaldo en lugar de reemplazarlo de golpe.
+    if (frames === 1) canvas.dataset.ready = "true";
     if (DEBUG_FRAMES && (frames === 1 || frames % 10 === 0)) {
       canvas.dataset.frames = String(frames);
     }

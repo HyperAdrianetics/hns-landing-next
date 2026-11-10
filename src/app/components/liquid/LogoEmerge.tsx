@@ -55,7 +55,7 @@ const LogoEmerge = () => {
           blobs={PAUSE_BLOBS}
           mobileBlobs={PAUSE_BLOBS_MOBILE}
           intro="converge"
-          className="absolute inset-0 h-full w-full"
+          className="liquid-canvas absolute inset-0 h-full w-full"
         />
       ) : null}
       <div className="pause-logo">
